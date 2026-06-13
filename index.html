@@ -7,7 +7,7 @@
 <script>
 // ---------- إعدادات رقم الدفع ----------
 const PAYMENT = {
-phone: "1093456565", // الرقم الأساسي (بدون مفتاح دولة)
+phone: "01093456565", // الرقم الأساسي (مع الصفر)
 countries: [
 { code: "+20", name: "مصر", label: "+20 مصر" },
 { code: "+966", name: "السعودية", label: "+966 السعودية" },
@@ -282,8 +282,9 @@ a{text-decoration:none;color:inherit}
 <label>الدولة:</label>
 <select id="countrySelect" onchange="updatePayment()"></select>
 </div>
-<div class="payment-number" id="paymentNumber">+20 1093456565</div>
-<p style="margin-top:15px">📲 بعد الدفع، أرسل صورة الإيصال على واتساب: <strong id="whatsappDisplay">+20 1093456565</strong></p>
+<div class="payment-number" id="paymentNumber">01093456565</div>
+<p style="margin-top:10px;color:#667;font-size:14px" id="internationalNumber">+20 1093456565</p>
+<p style="margin-top:15px">📲 بعد الدفع، أرسل صورة الإيصال على واتساب: <strong id="whatsappDisplay">01093456565</strong></p>
 <p style="margin-top:10px">⏳ سيتم تفعيل الاشتراك فور تأكيد الدفع (خلال 30 دقيقة)</p>
 <div class="payment-note">لا توجد نسخة تجريبية — الاشتراك يبدأ فور تأكيد الدفع</div>
 <a id="sendReceiptBtn" href="https://wa.me/201093456565" class="btn btn-whatsapp" style="margin-top:20px;justify-content:center" target="_blank">أرسل الإيصال على واتساب</a>
@@ -325,10 +326,14 @@ a{text-decoration:none;color:inherit}
 function updatePayment() {
 const sel = document.getElementById('countrySelect');
 const cc = PAYMENT.countries[sel.value].code;
-const full = cc + ' ' + PAYMENT.phone.replace(/(\d{3})(\d{3})(\d{4})/, '$1 $2 $3');
-const wa = cc.replace('+', '') + PAYMENT.phone;
-document.getElementById('paymentNumber').textContent = full;
-document.getElementById('whatsappDisplay').textContent = full;
+const raw = PAYMENT.phone; // "01093456565"
+const waNum = raw.replace(/^0/, ''); // إزالة الصفر لرابط واتساب
+const localDisplay = raw;
+const intlDisplay = cc + ' ' + waNum;
+const wa = cc.replace('+', '') + waNum;
+document.getElementById('paymentNumber').textContent = localDisplay;
+document.getElementById('internationalNumber').textContent = intlDisplay;
+document.getElementById('whatsappDisplay').textContent = localDisplay;
 document.getElementById('sendReceipt').href = 'https://wa.me/' + wa;
 document.getElementById('heroWhatsapp').href = 'https://wa.me/' + wa;
 document.getElementById('footerWhatsapp').href = 'https://wa.me/' + wa;
