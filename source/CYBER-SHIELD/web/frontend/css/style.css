@@ -1,0 +1,33 @@
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',sans-serif;background:#0a0a15;color:#e8e8f0;min-height:100vh}
+nav{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;background:#0f0f1e;border-bottom:1px solid rgba(0,245,160,.1)}
+.nav-brand{font-size:18px;font-weight:800;background:linear-gradient(135deg,#00f5a0,#00d9f5);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.nav-info{display:flex;align-items:center;gap:12px;font-size:14px;color:#8888aa}
+.status-dot{width:10px;height:10px;border-radius:50%;display:inline-block}
+.status-dot.green{background:#00f5a0;box-shadow:0 0 10px #00f5a0}
+.status-dot.red{background:#ff4444;box-shadow:0 0 10px #ff4444}
+.container{max-width:1200px;margin:0 auto;padding:24px}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px}
+.stat-card{background:#12122a;border:1px solid rgba(0,245,160,.12);border-radius:12px;padding:20px;text-align:center}
+.stat-val{font-size:32px;font-weight:900;color:#00f5a0}
+.stat-lbl{font-size:13px;color:#8888aa;margin-top:6px}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px}
+.tool-btn{padding:10px 22px;border-radius:10px;border:1px solid rgba(0,245,160,.2);background:#12122a;color:#00f5a0;font-size:14px;cursor:pointer;transition:all .3s;font-weight:600}
+.tool-btn:hover{background:rgba(0,245,160,.1);border-color:#00f5a0;transform:translateY(-2px)}
+.panel{background:#12122a;border:1px solid rgba(0,245,160,.12);border-radius:12px;margin-bottom:20px;overflow:hidden}
+.panel-hdr{padding:14px 20px;font-size:15px;font-weight:700;color:#00f5a0;border-bottom:1px solid rgba(0,245,160,.08)}
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{padding:12px 16px;text-align:center;color:#00d9f5;font-size:13px;font-weight:700;border-bottom:1px solid rgba(0,245,160,.08)}
+td{padding:10px 16px;text-align:center;color:#c0c0d0;border-bottom:1px solid rgba(255,255,255,.03)}
+tr:hover td{background:rgba(0,245,160,.03)}
+#alertsList{padding:0}
+.alert-item{display:flex;align-items:center;gap:12px;padding:12px 20px;border-bottom:1px solid rgba(255,255,255,.03)}
+.alert-item:last-child{border-bottom:none}
+.sev{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.sev.critical{background:#ff4444;box-shadow:0 0 8px #ff4444}
+.sev.warning{background:#ffaa00;box-shadow:0 0 8px #ffaa00}
+.sev.info{background:#00d9f5;box-shadow:0 0 8px #00d9f5}
+.msg{flex:1;font-size:14px;color:#e8e8f0}
+.time{font-size:12px;color:#666}
+@media(max-width:768px){.stats-row{grid-template-columns:repeat(2,1fr)}}

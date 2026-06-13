@@ -1,0 +1,58 @@
+<!DOCTYPE html><html dir="rtl" lang="ar"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>CYBER SHIELD v4.0.0</title>
+<link rel="stylesheet" href="css/style.css">
+</head><body>
+
+<nav>
+  <div class="nav-brand">⚔️ CYBER SHIELD v4.0.0</div>
+  <div class="nav-info">
+    <span id="navStatus" class="status-dot green"></span>
+    <span id="navInfo">نشط</span>
+  </div>
+</nav>
+
+<div class="container">
+
+  <!-- STATS -->
+  <div class="stats-row">
+    <div class="stat-card"><div class="stat-val" id="statDevices">0</div><div class="stat-lbl">الأجهزة</div></div>
+    <div class="stat-card"><div class="stat-val" id="statAlerts">0</div><div class="stat-lbl">تنبيهات</div></div>
+    <div class="stat-card"><div class="stat-val" id="statThreats">0</div><div class="stat-lbl">تهديدات</div></div>
+    <div class="stat-card"><div class="stat-val" id="statConns">0</div><div class="stat-lbl">اتصالات</div></div>
+  </div>
+
+  <!-- TOOLBAR -->
+  <div class="toolbar">
+    <button class="tool-btn" onclick="runScan()">📡 فحص الشبكة</button>
+    <button class="tool-btn" onclick="runIDS()">🛡️ فحص IDS</button>
+    <button class="tool-btn" onclick="runUSB()">🔌 فحص USB</button>
+    <button class="tool-btn" onclick="runAV()">🦠 فحص ملفات</button>
+    <button class="tool-btn" onclick="runKL()">⌨️ Keylogger</button>
+  </div>
+
+  <!-- ALERTS -->
+  <div class="panel">
+    <div class="panel-hdr">⚠️ التنبيهات</div>
+    <div id="alertsList"></div>
+  </div>
+
+  <!-- DEVICES -->
+  <div class="panel">
+    <div class="panel-hdr">📡 الأجهزة</div>
+    <div class="table-wrap">
+      <table><thead><tr><th>IP</th><th>MAC</th><th>الجهاز</th><th>المزود</th><th>الحالة</th></tr></thead>
+      <tbody id="devicesBody"></tbody></table>
+    </div>
+  </div>
+
+  <!-- QUICK SCAN RESULT -->
+  <div class="panel" id="resultPanel" style="display:none">
+    <div class="panel-hdr">📋 نتيجة الفحص</div>
+    <pre id="resultContent" style="color:#00f5a0;font-size:13px;line-height:1.6;max-height:300px;overflow:auto;padding:16px;background:#0f0f1e;border-radius:10px;direction:ltr;text-align:left"></pre>
+  </div>
+
+</div>
+
+<script src="js/app.js"></script>
+</body></html>
