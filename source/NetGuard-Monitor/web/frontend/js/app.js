@@ -170,6 +170,71 @@ async function loadAll() {
   }
 }
 
+// LICENSE
+async function checkLicense() {
+  try {
+    const data = await api('/api/license/status');
+    const overlay = document.getElementById('licenseOverlay');
+    const badge = document.getElementById('licenseBadge');
+    const infoEl = document.getElementById('licenseInfo');
+    if (data.valid) {
+      overlay.style.display = 'none';
+      badge.style.display = 'inline';
+      infoEl.innerHTML = `<span style="color:#00f5a0">✅ ${data.message}</span>`;
+    } else {
+      overlay.style.display = 'flex';
+      badge.style.display = 'none';
+      infoEl.innerHTML = `<span style="color:#ff4444">❌ ${data.message}</span>`;
+    }
+  } catch (e) {
+    console.error('License check error:', e);
+  }
+}
+
+async function activateLicense(key) {
+  const msgEl = document.getElementById('licenseMsg');
+  msgEl.style.display = 'none';
+  try {
+    const data = await api('/api/license/activate', 'POST', {key});
+    msgEl.style.display = 'block';
+    if (data.success) {
+      msgEl.style.color = '#00f5a0';
+      msgEl.textContent = '✅ ' + (data.message || 'تم التفعيل بنجاح');
+      setTimeout(checkLicense, 1000);
+    } else {
+      msgEl.style.color = '#ff4444';
+      msgEl.textContent = '❌ ' + (data.message || 'فشل التفعيل');
+    }
+  } catch (e) {
+    msgEl.style.display = 'block';
+    msgEl.style.color = '#ff4444';
+    msgEl.textContent = '❌ تعذر الاتصال بالخادم';
+  }
+}
+
+// ARP
+async function loadArpAlerts() {
+  try {
+    const alerts = await api('/api/arp/check');
+    const tbody = document.getElementById('arpBody');
+    if (!alerts || !alerts.length) {
+      tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:#555;padding:20px">لا توجد إنذارات ARP</td></tr>';
+      return;
+    }
+    tbody.innerHTML = alerts.map(a => `<tr>
+      <td>${escape(a.ip)}</td>
+      <td style="direction:ltr;font-size:0.8em">${escape(a.macs ? a.macs.join(', ') : '—')}</td>
+      <td><span class="badge warning">${escape(a.type)}</span></td>
+      <td>${escape(a.time || '—')}</td>
+    </tr>`).join('');
+  } catch (e) {
+    console.error('ARP load error:', e);
+  }
+}
+
 // POLL
+checkLicense();
 loadAll();
+loadArpAlerts();
 setInterval(loadAll, 5000);
+setInterval(loadArpAlerts, 10000);

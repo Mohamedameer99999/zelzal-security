@@ -3,7 +3,8 @@ from http.server import HTTPServer, SimpleHTTPRequestHandler
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from core import config, monitor, scanner, firewall, antivirus, usb_control, keylogger, database as db
+from core import config, monitor, scanner, firewall, antivirus, usb_control, keylogger, database as db, license as lic, wifi_scanner
+from core.arp_detector import ARPDetector
 
 config.load()
 PORT = config.get('port')
@@ -15,6 +16,7 @@ else:
     FRONTEND_DIR = Path(__file__).resolve().parent / 'frontend'
 
 _sessions = {}
+_arp = None
 
 def _make_session():
     token = secrets.token_hex(32)
@@ -84,6 +86,19 @@ class ShieldHandler(SimpleHTTPRequestHandler):
             self._json(db.get_alerts(50))
         elif self.path == '/api/devices':
             self._json(db.get_devices())
+        elif self.path == '/api/license/status':
+            info = lic.get_license_info()
+            if info:
+                valid, msg = lic.validate_license(info['key'])
+                self._json({'valid': valid, 'message': msg, 'info': info})
+            else:
+                self._json({'valid': False, 'message': 'لا يوجد ترخيص', 'info': None})
+        elif self.path == '/api/wifi/scan':
+            self._json({'networks': wifi_scanner.scan_wifi()})
+        elif self.path == '/api/arp/check':
+            alerts = _arp.get_alerts() if _arp else []
+            spoof = _arp.check_arp_spoof() if _arp else []
+            self._json({'alerts': alerts, 'spoof': spoof})
         else:
             self.send_response(404)
             self.end_headers()
@@ -111,6 +126,32 @@ class ShieldHandler(SimpleHTTPRequestHandler):
                 self._json({'success': True})
             except Exception as e:
                 self._json({'error': str(e)}, 400)
+        elif self.path == '/api/license/activate':
+            try:
+                content = self.rfile.read(int(self.headers.get('Content-Length', 0)))
+                data = json.loads(content)
+                key = data.get('key', '')
+                import uuid
+                mac = ':'.join(hex(uuid.getnode())[2:].zfill(12)[i:i+2] for i in range(0, 12, 2))
+                valid, msg = lic.validate_license(key, mac)
+                if valid:
+                    self._json({'success': True, 'message': msg})
+                else:
+                    self._json({'success': False, 'error': msg}, 400)
+            except Exception as e:
+                self._json({'error': str(e)}, 400)
+        elif self.path == '/api/arp/start':
+            if _arp:
+                _arp.start_monitoring()
+                self._json({'success': True, 'message': 'تم بدء مراقبة ARP'})
+            else:
+                self._json({'error': 'ARP detector not initialized'}, 400)
+        elif self.path == '/api/arp/stop':
+            if _arp:
+                _arp.stop_monitoring()
+                self._json({'success': True, 'message': 'تم إيقاف مراقبة ARP'})
+            else:
+                self._json({'error': 'ARP detector not initialized'}, 400)
         else:
             self._json({'error': 'not found'}, 404)
 
@@ -137,8 +178,13 @@ class ShieldHandler(SimpleHTTPRequestHandler):
     def log_message(self, format, *args):
         pass
 
-def start_server():
+def start_server(arp_detector=None):
+    global _arp
+    _arp = arp_detector
     monitor.start()
+    if _arp:
+        _arp.start_monitoring()
+        print('[CYBER SHIELD] ARP monitoring started')
     server = HTTPServer(('0.0.0.0', PORT), ShieldHandler)
     print(f'[CYBER SHIELD] Running on http://localhost:{PORT}')
     if PASSWORD:

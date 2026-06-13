@@ -9,3 +9,6 @@ else:
     DATA = ROOT / 'data'
 
 DATA.mkdir(parents=True, exist_ok=True)
+
+def get_data_dir():
+    return str(DATA)

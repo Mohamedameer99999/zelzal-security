@@ -19,6 +19,7 @@ PyInstaller.__main__.run([
     '--add-data', f'{FRONTEND}{os.pathsep}web/frontend',
     '--add-data', f'{CONFIG}{os.pathsep}.',
     '--hidden-import', 'psutil',
+    '--hidden-import', 'sqlite3',
     '--collect-submodules', 'psutil',
     '--distpath', str(DIST_DIR),
     '--workpath', str(Path(__file__).resolve().parent / 'build'),

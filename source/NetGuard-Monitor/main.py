@@ -3,11 +3,13 @@ import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from web.server import start_server
+from core.arp_detector import ARPDetector
 
 if __name__ == '__main__':
+    arp = ARPDetector()
     print('===========================================')
-    print('   NetGuard Monitor v1.1.0')
+    print('   NetGuard Monitor v1.2.0')
     print('   Network Monitor System')
     print('===========================================')
     print()
-    start_server()
+    start_server(arp_detector=arp)

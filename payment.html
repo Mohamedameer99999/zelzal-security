@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZELZAL SECURITY - اشترك الآن</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Tahoma,sans-serif;background:#0a0a15;color:#fff;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.card{background:#111122;border:1px solid #ffffff0a;border-radius:20px;padding:40px;max-width:500px;width:100%}
+.logo{text-align:center;font-size:24px;font-weight:800;background:linear-gradient(135deg,#00f5a0,#00d9f5);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:5px}
+.sub{text-align:center;color:#667;font-size:13px;margin-bottom:25px}
+.plan{background:#0d0d1a;border-radius:12px;padding:20px;margin-bottom:15px;border:1px solid #ffffff0a;cursor:pointer;transition:all .3s;display:flex;justify-content:space-between;align-items:center}
+.plan:hover,.plan.selected{border-color:#00f5a0;background:#00f5a005}
+.plan .name{font-size:15px;font-weight:600}
+.plan .price{font-size:20px;font-weight:800;color:#00f5a0}
+.plan .price small{font-size:12px;color:#667;font-weight:400}
+.plan .savings{background:#ff5500;color:#fff;font-size:10px;padding:2px 8px;border-radius:10px;margin-right:8px}
+.period-toggle{display:flex;background:#0d0d1a;border-radius:10px;padding:4px;margin-bottom:20px;border:1px solid #ffffff0a}
+.period-btn{flex:1;padding:10px;text-align:center;border-radius:8px;cursor:pointer;font-size:14px;color:#667;transition:all .3s}
+.period-btn.active{background:#00f5a0;color:#0a0a15;font-weight:600}
+.payment-number{text-align:center;font-size:28px;font-weight:800;color:#fff;background:#0d0d1a;padding:15px;border-radius:12px;border:2px dashed #00f5a033;margin:20px 0;letter-spacing:2px;direction:ltr}
+.payment-label{text-align:center;color:#889;font-size:13px;margin-bottom:5px}
+.whatsapp-btn{display:block;width:100%;padding:14px;background:#25D366;color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;text-align:center;text-decoration:none;transition:all .3s}
+.whatsapp-btn:hover{box-shadow:0 4px 20px #25D36633}
+.total-display{text-align:center;font-size:14px;color:#889;margin:15px 0}
+.total-display span{font-size:24px;font-weight:800;color:#fff}
+.qr-section{text-align:center;margin:20px 0;padding:20px;background:#0d0d1a;border-radius:12px;border:1px solid #ffffff0a}
+.qr-placeholder{width:180px;height:180px;margin:10px auto;background:linear-gradient(135deg,#00f5a010,#00d9f510);border-radius:12px;display:flex;align-items:center;justify-content:center;border:1px dashed #00f5a033}
+.qr-placeholder span{color:#667;font-size:12px}
+.steps{list-style:none;margin:20px 0}
+.steps li{padding:8px 0;color:#889;font-size:13px;border-bottom:1px solid #ffffff08}
+.steps li::before{content:'✓ ';color:#00f5a0}
+.note{font-size:11px;color:#667;text-align:center;margin-top:15px}
+</style>
+</head>
+<body>
+
+<div class="card">
+<div class="logo">⚡ ZELZAL SECURITY</div>
+<div class="sub">اختر باقتك وادفع فوراً عبر فودافون كاش</div>
+
+<div class="period-toggle">
+<div class="period-btn active" onclick="setPeriod('monthly')" id="pMonthly">📅 شهري</div>
+<div class="period-btn" onclick="setPeriod('yearly')" id="pYearly">📆 سنوي (وفر أكثر)</div>
+</div>
+
+<div class="plan selected" onclick="selectPlan('cs')" id="planCS">
+<div>
+<div class="name">🛡️ CYBER SHIELD</div>
+<div style="font-size:12px;color:#667">منصة أمن سيبراني متكاملة</div>
+</div>
+<div><span class="price" id="priceCS">200</span> <small>ج.م</small></div>
+</div>
+
+<div class="plan" onclick="selectPlan('ng')" id="planNG">
+<div>
+<div class="name">📡 NetGuard Monitor</div>
+<div style="font-size:12px;color:#667">نظام مراقبة الشبكة</div>
+</div>
+<div><span class="price" id="priceNG">250</span> <small>ج.م</small></div>
+</div>
+
+<div class="plan" onclick="selectPlan('both')" id="planBoth">
+<div>
+<div class="name">🏆 الباقة المزدوجة</div>
+<div style="font-size:12px;color:#667">CYBER SHIELD + NetGuard</div>
+</div>
+<div><span class="price" id="priceBoth">500</span> <small>ج.م</small></div>
+<div class="savings">وفر 150</div>
+</div>
+
+<div class="total-display">المطلوب: <span id="totalPrice">200</span> ج.م</div>
+
+<div class="payment-label">💳 فودافون كاش — ارسل المبلغ على</div>
+<div class="payment-number" id="phoneDisplay">01093456565</div>
+
+<div class="qr-section">
+<div style="font-size:14px;color:#00f5a0;margin-bottom:10px">📱 امسح QR للدفع السريع</div>
+<div class="qr-placeholder"><span>QR Code<br>(فودافون كاش)</span></div>
+</div>
+
+<div style="margin-bottom:10px">
+<label style="font-size:13px;color:#667">🇪🇬 الدولة:</label>
+<select id="countrySel" onchange="updatePhone()" style="background:#0d0d1a;border:1px solid #ffffff0a;color:#fff;padding:6px 10px;border-radius:6px;width:100%;margin-top:5px">
+<option value="+20">مصر (+20)</option>
+<option value="+966">السعودية (+966)</option>
+<option value="+971">الإمارات (+971)</option>
+<option value="+974">قطر (+974)</option>
+<option value="+973">البحرين (+973)</option>
+<option value="+965">الكويت (+965)</option>
+<option value="+968">عُمان (+968)</option>
+</select>
+</div>
+
+<a id="whatsappLink" href="https://wa.me/201093456565?text=%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%A7%D9%84%D8%A7%D8%B4%D8%AA%D8%B1%D8%A7%D9%83%20%D9%81%D9%8A%20%D8%A8%D8%A7%D9%82%D8%A9%20CYBER%20SHIELD%20-%20%D8%B4%D9%87%D8%B1%D9%8A%20200%20%D8%AC.%D9%85" class="whatsapp-btn" target="_blank">💬 أرسل الإيصال على واتساب</a>
+
+<ul class="steps">
+<li>حول المبلغ على رقم فودافون كاش أعلى</li>
+<li>صور الإيصال</li>
+<li>اضغط على واتساب وأرفق الصورة</li>
+<li>سيتم تفعيل اشتراكك خلال 30 دقيقة</li>
+</ul>
+
+<div class="note">لا توجد نسخة تجريبية — الاشتراك يبدأ فور تأكيد الدفع</div>
+</div>
+
+<script>
+const prices = {
+monthly: { cs: 200, ng: 250, both: 500 },
+yearly: { cs: 2000, ng: 3000, both: 4500 }
+};
+let selectedPlan = 'cs';
+let selectedPeriod = 'monthly';
+
+function selectPlan(p) {
+selectedPlan = p;
+document.querySelectorAll('.plan').forEach(el => el.classList.remove('selected'));
+document.getElementById('plan' + p.toUpperCase()).classList.add('selected');
+updateTotal();
+}
+
+function setPeriod(p) {
+selectedPeriod = p;
+document.querySelectorAll('.period-btn').forEach(el => el.classList.remove('active'));
+document.getElementById(p === 'monthly' ? 'pMonthly' : 'pYearly').classList.add('active');
+updateTotal();
+}
+
+function updateTotal() {
+const price = prices[selectedPeriod][selectedPlan];
+document.getElementById('totalPrice').textContent = price;
+["priceCS","priceNG","priceBoth"].forEach((id,i) => {
+const p = prices[selectedPeriod][['cs','ng','both'][i]];
+document.getElementById(id).textContent = p;
+});
+const names = { cs: 'CYBER SHIELD', ng: 'NetGuard Monitor', both: 'المزدوجة' };
+const periods = { monthly: 'شهري', yearly: 'سنوي' };
+const msg = encodeURIComponent(`أريد الاشتراك في باقة ${names[selectedPlan]} - ${periods[selectedPeriod]} ${price} ج.م`);
+const cc = document.getElementById('countrySel').value.replace('+', '');
+document.getElementById('whatsappLink').href = `https://wa.me/${cc}1093456565?text=${msg}`;
+}
+
+function updatePhone() {
+const cc = document.getElementById('countrySel').value;
+document.getElementById('phoneDisplay').textContent = cc + ' 1093456565';
+updateTotal();
+}
+</script>
+</body>
+</html>

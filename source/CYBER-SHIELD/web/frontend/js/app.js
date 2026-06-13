@@ -96,5 +96,96 @@ async function loadAll() {
   }
 }
 
-loadAll();
-setInterval(loadAll, 10000);
+async function checkLicense() {
+  try {
+    const data = await api('/api/license/status');
+    if (data.valid) {
+      document.getElementById('licenseOverlay').style.display = 'none';
+      document.getElementById('dashboard').style.display = 'block';
+      document.getElementById('licenseBadge').textContent = '🔑 ' + data.message;
+      loadAll();
+      setInterval(loadAll, 10000);
+    } else {
+      document.getElementById('licenseOverlay').style.display = 'flex';
+      document.getElementById('dashboard').style.display = 'none';
+    }
+  } catch(e) {
+    document.getElementById('licenseOverlay').style.display = 'flex';
+    document.getElementById('dashboard').style.display = 'none';
+  }
+}
+
+async function activateLicense(e) {
+  e.preventDefault();
+  const key = document.getElementById('licenseKey').value.trim();
+  const btn = document.getElementById('activateBtn');
+  const err = document.getElementById('licenseError');
+  btn.disabled = true;
+  btn.textContent = 'جاري التحقق...';
+  err.textContent = '';
+  try {
+    const data = await api('/api/license/activate', 'POST', {key});
+    if (data.success) {
+      document.getElementById('licenseOverlay').style.display = 'none';
+      document.getElementById('dashboard').style.display = 'block';
+      document.getElementById('licenseBadge').textContent = '🔑 ' + data.message;
+      loadAll();
+      setInterval(loadAll, 10000);
+    } else {
+      err.textContent = data.error || 'خطأ في التفعيل';
+    }
+  } catch(e) {
+    err.textContent = 'تعذر الاتصال بالخادم';
+  }
+  btn.disabled = false;
+  btn.textContent = 'تفعيل الترخيص';
+  return false;
+}
+
+async function runWiFi() {
+  showResult('جاري فحص شبكات WiFi...');
+  const data = await api('/api/wifi/scan');
+  const networks = data.networks || [];
+  if (networks.length === 0) {
+    showResult('لا توجد شبكات WiFi متاحة');
+    return;
+  }
+  let text = `عدد الشبكات: ${networks.length}\n${'='.repeat(50)}\n`;
+  networks.forEach((n, i) => {
+    text += `\n[${i+1}] ${n.ssid || '—'}\n`;
+    text += `    BSSID: ${n.bssid || '—'}\n`;
+    text += `    Signal: ${n.signal || '—'}\n`;
+    text += `    Channel: ${n.channel || '—'}\n`;
+    text += `    Auth: ${n.auth || '—'}\n`;
+    text += `    Encryption: ${n.encryption || '—'}\n`;
+  });
+  showResult(text);
+}
+
+async function runARP() {
+  const data = await api('/api/arp/check');
+  const el = document.getElementById('arpList');
+  const allAlerts = [...(data.alerts || []), ...(data.spoof || [])];
+  if (!allAlerts.length) {
+    el.innerHTML = '<div style="padding:30px;text-align:center;color:#00f5a0">✅ لا توجد هجمات ARP Spoofing</div>';
+    return;
+  }
+  el.innerHTML = allAlerts.map(a => `<div class="arp-item">
+    <span class="sev critical"></span>
+    <span class="ip">${escape(a.ip)}</span>
+    <span class="macs">${escape((a.macs||[]).join(', '))}</span>
+    <span class="time">${a.time || '—'}</span>
+  </div>`).join('');
+}
+
+async function startARPWatch() {
+  await api('/api/arp/start', 'POST');
+  showResult('✅ بدء مراقبة ARP');
+}
+
+async function stopARPWatch() {
+  await api('/api/arp/stop', 'POST');
+  showResult('⏹️ إيقاف مراقبة ARP');
+}
+
+checkLicense();

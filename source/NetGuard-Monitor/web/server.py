@@ -5,6 +5,8 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from core import monitor
 from core import config
+from core.license import validate_license, get_license_info
+from core.arp_detector import ARPDetector
 
 config.load()
 PORT = config.get('port')
@@ -76,6 +78,18 @@ class NetGuardHandler(SimpleHTTPRequestHandler):
             self._json(monitor.get_network_history(6))
         elif self.path == '/api/bandwidth':
             self._json(monitor.get_bandwidth_history())
+        elif self.path == '/api/license/status':
+            info = get_license_info()
+            if info:
+                valid, msg = validate_license(info['key'])
+                self._json({'valid': valid, 'info': info, 'message': msg})
+            else:
+                self._json({'valid': False, 'info': None, 'message': 'لا يوجد ترخيص'})
+        elif self.path == '/api/arp/check':
+            if hasattr(self.server, 'arp_detector') and self.server.arp_detector:
+                self._json(self.server.arp_detector.get_alerts())
+            else:
+                self._json([])
         else:
             self.send_response(404)
             self.end_headers()
@@ -106,6 +120,27 @@ class NetGuardHandler(SimpleHTTPRequestHandler):
                 self._json({'success': True})
             except Exception as e:
                 self._json({'error': str(e)}, 400)
+        elif self.path == '/api/license/activate':
+            try:
+                content = self.rfile.read(int(self.headers.get('Content-Length', 0)))
+                data = json.loads(content)
+                key = data.get('key', '')
+                valid, msg = validate_license(key)
+                self._json({'success': valid, 'message': msg})
+            except Exception as e:
+                self._json({'error': str(e)}, 400)
+        elif self.path == '/api/arp/start':
+            if hasattr(self.server, 'arp_detector') and self.server.arp_detector:
+                self.server.arp_detector.start_monitoring()
+                self._json({'success': True, 'message': 'ARP monitoring started'})
+            else:
+                self._json({'error': 'ARP detector not available'}, 400)
+        elif self.path == '/api/arp/stop':
+            if hasattr(self.server, 'arp_detector') and self.server.arp_detector:
+                self.server.arp_detector.stop_monitoring()
+                self._json({'success': True, 'message': 'ARP monitoring stopped'})
+            else:
+                self._json({'error': 'ARP detector not available'}, 400)
         else:
             self._json({'error':'not found'}, 404)
 
@@ -134,9 +169,10 @@ class NetGuardHandler(SimpleHTTPRequestHandler):
     def log_message(self, format, *args):
         pass
 
-def start_server():
+def start_server(arp_detector=None):
     monitor.start()
     server = HTTPServer(('0.0.0.0', PORT), NetGuardHandler)
+    server.arp_detector = arp_detector
     if _needs_auth():
         print(f'[NetGuard] Authentication enabled (user: {config.get("admin_user")})')
     else:
