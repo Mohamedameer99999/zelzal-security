@@ -4,6 +4,22 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ZELZAL SECURITY - حلول الأمن السيبراني</title>
+<script>
+// ---------- إعدادات رقم الدفع ----------
+const PAYMENT = {
+phone: "1093456565", // الرقم الأساسي (بدون مفتاح دولة)
+countries: [
+{ code: "+20", name: "مصر", label: "+20 مصر" },
+{ code: "+966", name: "السعودية", label: "+966 السعودية" },
+{ code: "+971", name: "الإمارات", label: "+971 الإمارات" },
+{ code: "+974", name: "قطر", label: "+974 قطر" },
+{ code: "+973", name: "البحرين", label: "+973 البحرين" },
+{ code: "+965", name: "الكويت", label: "+965 الكويت" },
+{ code: "+968", name: "عمان", label: "+968 عمان" }
+],
+defaultCountry: 0 // index لمصر
+};
+</script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Segoe UI',Tahoma,sans-serif;background:#0a0a15;color:#fff;min-height:100vh}
@@ -69,6 +85,10 @@ a{text-decoration:none;color:inherit}
 .payment-info p{color:#889;font-size:14px;line-height:1.8;margin-bottom:10px}
 .payment-number{font-size:28px;font-weight:800;color:#fff;background:#0a0a15;display:inline-block;padding:10px 30px;border-radius:8px;border:2px dashed #00f5a033;margin:15px 0}
 .payment-note{color:#667;font-size:12px;margin-top:10px}
+.country-selector{display:flex;gap:10px;align-items:center;justify-content:center;margin-bottom:20px;flex-wrap:wrap}
+.country-selector select{background:#0a0a15;border:1px solid #00f5a033;color:#fff;padding:10px 15px;border-radius:8px;font-size:15px;cursor:pointer}
+.country-selector select:focus{outline:none;border-color:#00f5a0}
+.country-selector label{font-size:14px;color:#889}
 /* Presentations */
 .presentation-section{background:#0d0d1a;padding:80px 40px}
 .presentation-frame{width:100%;max-width:1000px;height:600px;border:1px solid #ffffff0a;border-radius:12px;margin:20px auto;display:block;background:#0a0a15}
@@ -112,7 +132,7 @@ a{text-decoration:none;color:inherit}
 <div class="hero-btns">
 <a href="#products" class="btn btn-primary">اكتشف المنتجات</a>
 <a href="#payment" class="btn btn-outline">احصل عليه الآن</a>
-<a href="https://wa.me/201093456565" class="btn btn-whatsapp" target="_blank">واتساب</a>
+<a id="heroWhatsapp" href="https://wa.me/201093456565" class="btn btn-whatsapp" target="_blank">واتساب</a>
 </div>
 </div>
 
@@ -258,11 +278,15 @@ a{text-decoration:none;color:inherit}
 <div class="payment-info">
 <h3>💳 فودافون كاش</h3>
 <p>ادفع عبر فودافون كاش على الرقم التالي، ثم أرسل الإيصال على واتساب لتأكيد الاشتراك</p>
-<div class="payment-number">0109 3456 565</div>
-<p style="margin-top:15px">📲 بعد الدفع، أرسل صورة الإيصال على واتساب: <strong>01093456565</strong></p>
+<div class="country-selector">
+<label>الدولة:</label>
+<select id="countrySelect" onchange="updatePayment()"></select>
+</div>
+<div class="payment-number" id="paymentNumber">+20 1093456565</div>
+<p style="margin-top:15px">📲 بعد الدفع، أرسل صورة الإيصال على واتساب: <strong id="whatsappDisplay">+20 1093456565</strong></p>
 <p style="margin-top:10px">⏳ سيتم تفعيل الاشتراك فور تأكيد الدفع (خلال 30 دقيقة)</p>
 <div class="payment-note">لا توجد نسخة تجريبية — الاشتراك يبدأ فور تأكيد الدفع</div>
-<a href="https://wa.me/201093456565" class="btn btn-whatsapp" style="margin-top:20px;justify-content:center">أرسل الإيصال على واتساب</a>
+<a id="sendReceiptBtn" href="https://wa.me/201093456565" class="btn btn-whatsapp" style="margin-top:20px;justify-content:center" target="_blank">أرسل الإيصال على واتساب</a>
 </div>
 </div>
 
@@ -292,10 +316,36 @@ a{text-decoration:none;color:inherit}
 <a href="#presentations">العروض التقديمية</a>
 <a href="#payment">الدفع</a>
 <a href="guide.html">دليل الاستخدام</a>
-<a href="https://wa.me/201093456565" target="_blank">واتساب</a>
+<a id="footerWhatsapp" href="https://wa.me/201093456565" target="_blank">واتساب</a>
 </div>
 <p>© 2026 ZELZAL SECURITY — جميع الحقوق محفوظة</p>
 </div>
+
+<script>
+function updatePayment() {
+const sel = document.getElementById('countrySelect');
+const cc = PAYMENT.countries[sel.value].code;
+const full = cc + ' ' + PAYMENT.phone.replace(/(\d{3})(\d{3})(\d{4})/, '$1 $2 $3');
+const wa = cc.replace('+', '') + PAYMENT.phone;
+document.getElementById('paymentNumber').textContent = full;
+document.getElementById('whatsappDisplay').textContent = full;
+document.getElementById('sendReceipt').href = 'https://wa.me/' + wa;
+document.getElementById('heroWhatsapp').href = 'https://wa.me/' + wa;
+document.getElementById('footerWhatsapp').href = 'https://wa.me/' + wa;
+}
+
+function initPayment() {
+const sel = document.getElementById('countrySelect');
+PAYMENT.countries.forEach((c, i) => {
+const opt = document.createElement('option');
+opt.value = i; opt.textContent = c.label;
+if (i === PAYMENT.defaultCountry) opt.selected = true;
+sel.appendChild(opt);
+});
+updatePayment();
+}
+initPayment();
+</script>
 
 </body>
 </html>
