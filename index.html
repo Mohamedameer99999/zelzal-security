@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZELZAL SECURITY - حلول الأمن السيبراني</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Tahoma,sans-serif;background:#0a0a15;color:#fff;min-height:100vh}
+a{text-decoration:none;color:inherit}
+/* Header */
+.header{background:#0d0d1a;padding:15px 40px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #00f5a033;position:sticky;top:0;z-index:100}
+.logo{display:flex;align-items:center;gap:12px}
+.logo-icon{width:40px;height:40px;background:linear-gradient(135deg,#00f5a0,#00d9f5);border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:18px;color:#0a0a15}
+.logo-text{font-size:22px;font-weight:700;background:linear-gradient(135deg,#00f5a0,#00d9f5);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.nav{display:flex;gap:25px;align-items:center}
+.nav a{color:#889;font-size:14px;transition:color .3s}
+.nav a:hover{color:#00f5a0}
+/* Sections */
+.section{padding:80px 40px;max-width:1200px;margin:0 auto}
+.section-title{font-size:32px;font-weight:700;margin-bottom:15px;background:linear-gradient(135deg,#00f5a0,#00d9f5);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-align:center}
+.section-desc{text-align:center;color:#889;font-size:16px;margin-bottom:50px;line-height:1.7}
+/* Hero */
+.hero{text-align:center;padding:100px 40px 60px;background:radial-gradient(ellipse at center,#00f5a008 0%,transparent 70%)}
+.hero h1{font-size:48px;font-weight:800;margin-bottom:15px}
+.hero h1 span{background:linear-gradient(135deg,#00f5a0,#00d9f5);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{color:#889;font-size:18px;margin-bottom:30px;max-width:600px;margin-left:auto;margin-right:auto;line-height:1.8}
+.hero-btns{display:flex;gap:15px;justify-content:center;flex-wrap:wrap}
+.btn{padding:14px 30px;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;transition:all .3s;border:none;display:inline-flex;align-items:center;gap:8px}
+.btn-primary{background:linear-gradient(135deg,#00f5a0,#00d9f5);color:#0a0a15}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 25px #00f5a033}
+.btn-outline{border:2px solid #00f5a0;color:#00f5a0;background:transparent}
+.btn-outline:hover{background:#00f5a0;color:#0a0a15;transform:translateY(-2px)}
+.btn-whatsapp{background:#25D366;color:#fff}
+.btn-whatsapp:hover{transform:translateY(-2px);box-shadow:0 8px 25px #25D36633}
+/* Products */
+.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:30px;margin-top:30px}
+.product-card{background:#111122;border-radius:16px;padding:35px;border:1px solid #ffffff0a;transition:all .3s;position:relative;overflow:hidden}
+.product-card:hover{transform:translateY(-5px);border-color:#00f5a033;box-shadow:0 10px 40px #00f5a008}
+.product-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.product-card.cs::before{background:linear-gradient(90deg,#00f5a0,#00d9f5)}
+.product-card.ng::before{background:linear-gradient(90deg,#00d9f5,#00f5a0)}
+.product-badge{display:inline-block;background:#00f5a015;color:#00f5a0;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;margin-bottom:15px}
+.product-icon{font-size:36px;margin-bottom:15px}
+.product-title{font-size:20px;font-weight:700;margin-bottom:10px}
+.product-desc{color:#889;font-size:14px;line-height:1.7;margin-bottom:20px}
+.product-features{list-style:none;padding:0;margin-bottom:25px}
+.product-features li{color:#889;font-size:13px;padding:6px 0;border-bottom:1px solid #ffffff08}
+.product-features li::before{content:'▸ ';color:#00f5a0}
+.product-price{font-size:28px;font-weight:800;color:#00f5a0;margin-bottom:20px}
+.product-price small{font-size:14px;color:#889;font-weight:400}
+/* Pricing */
+.pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:25px}
+.pricing-card{background:#111122;border-radius:16px;padding:35px;text-align:center;border:1px solid #ffffff0a;transition:all .3s;position:relative}
+.pricing-card:hover{transform:translateY(-5px);border-color:#00f5a033}
+.pricing-card.featured{border-color:#00f5a0;box-shadow:0 0 30px #00f5a015}
+.pricing-card.featured::before{content:'الأفضل';position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#00f5a0,#00d9f5);color:#0a0a15;padding:4px 20px;border-radius:20px;font-size:12px;font-weight:700}
+.pricing-name{font-size:18px;font-weight:700;margin-bottom:5px;color:#fff}
+.pricing-sub{color:#889;font-size:13px;margin-bottom:20px}
+.pricing-price{font-size:36px;font-weight:800;color:#00f5a0;margin-bottom:5px}
+.pricing-price small{font-size:14px;color:#889;font-weight:400}
+.pricing-period{color:#667;font-size:13px;margin-bottom:25px}
+.pricing-features{list-style:none;padding:0;margin-bottom:25px;text-align:right}
+.pricing-features li{color:#889;font-size:13px;padding:8px 0;border-bottom:1px solid #ffffff08}
+.pricing-features li::before{content:'✓ ';color:#00f5a0}
+/* Payment */
+.payment-info{background:#111122;border-radius:16px;padding:40px;margin-top:50px;border:1px solid #00f5a015;text-align:center}
+.payment-info h3{font-size:22px;margin-bottom:15px;color:#00f5a0}
+.payment-info p{color:#889;font-size:14px;line-height:1.8;margin-bottom:10px}
+.payment-number{font-size:28px;font-weight:800;color:#fff;background:#0a0a15;display:inline-block;padding:10px 30px;border-radius:8px;border:2px dashed #00f5a033;margin:15px 0}
+.payment-note{color:#667;font-size:12px;margin-top:10px}
+/* Presentations */
+.presentation-section{background:#0d0d1a;padding:80px 40px}
+.presentation-frame{width:100%;max-width:1000px;height:600px;border:1px solid #ffffff0a;border-radius:12px;margin:20px auto;display:block;background:#0a0a15}
+.presentation-frame iframe{width:100%;height:100%;border:none;border-radius:12px}
+/* Footer */
+.footer{background:#0d0d1a;padding:30px 40px;text-align:center;border-top:1px solid #ffffff08}
+.footer p{color:#667;font-size:13px}
+.footer-links{display:flex;gap:20px;justify-content:center;margin-bottom:15px}
+.footer-links a{color:#889;font-size:13px;transition:color .3s}
+.footer-links a:hover{color:#00f5a0}
+/* Mobile */
+@media(max-width:768px){
+.header{padding:15px 20px;flex-direction:column;gap:10px}
+.nav{flex-wrap:wrap;justify-content:center}
+.hero{padding:60px 20px 40px}
+.hero h1{font-size:32px}
+.section{padding:60px 20px}
+.presentation-frame{height:400px}
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+<div class="logo">
+<div class="logo-icon">Z</div>
+<div class="logo-text">ZELZAL SECURITY</div>
+</div>
+<div class="nav">
+<a href="#products">المنتجات</a>
+<a href="#pricing">الباقات</a>
+<a href="#presentations">العروض</a>
+<a href="#payment">الدفع</a>
+<a href="guide.html">الدليل</a>
+</div>
+</div>
+
+<div class="hero">
+<h1>حلول <span>الأمن السيبراني</span> للشركات</h1>
+<p>منتجات متكاملة لحماية شبكتك من الاختراقات، مراقبة الأجهزة، كشف الثغرات، والحماية من الفيروسات وبرامج الفدية — بأسعار تنافسية ودعم فني مستمر</p>
+<div class="hero-btns">
+<a href="#products" class="btn btn-primary">اكتشف المنتجات</a>
+<a href="#payment" class="btn btn-outline">احصل عليه الآن</a>
+<a href="https://wa.me/201093456565" class="btn btn-whatsapp" target="_blank">واتساب</a>
+</div>
+</div>
+
+<div class="section" id="products">
+<div class="section-title">منتجاتنا</div>
+<div class="section-desc">مجموعة متكاملة من أدوات الأمن السيبراني المصممة خصيصًا لحماية بنيتك التحتية</div>
+<div class="products">
+
+<div class="product-card cs">
+<div class="product-badge">الأكثر شمولاً</div>
+<div class="product-icon">🛡️</div>
+<div class="product-title">CYBER SHIELD v4.0</div>
+<div class="product-desc">منصة أمن سيبراني متكاملة تجمع بين فحص الثغرات، كشف الاختراق، مضاد فيروسات، التحكم في USB، ومكافحة كيلوجر — كل ذلك في واجهة تحكم عربية موحدة.</div>
+<ul class="product-features">
+<li>Network Scanner + Port Scanner</li>
+<li>IDS/IPS لكشف الاختراق</li>
+<li>Anti-Virus (real-time + manual)</li>
+<li>USB Control (تعطيل/تشغيل)</li>
+<li>Anti-Keylogger</li>
+<li>Dashboard عربي live</li>
+<li>Login/Auth مدمج</li>
+<li>سعر الباقة المنفردة: 300 ج.م</li>
+</ul>
+<a href="CYBER-SHIELD-Presentation.html" class="btn btn-outline" style="width:100%;justify-content:center">عرض تقديمي</a>
+</div>
+
+<div class="product-card ng">
+<div class="product-badge">مراقب الشبكة</div>
+<div class="product-icon">📡</div>
+<div class="product-title">NetGuard Monitor v1.1</div>
+<div class="product-desc">نظام مراقبة شبكة متخصص في كشف الأجهزة الجديدة غير المصرح بها، فحص المنافذ، وإشعارات فورية عبر WhatsApp عند ظهور أي جهاز غريب على شبكتك.</div>
+<ul class="product-features">
+<li>Network Scanner (subnet مخصص)</li>
+<li>كشف الأجهزة الجديدة تلقائيًا</li>
+<li>WhatsApp webhook notification</li>
+<li>Port Scanner</li>
+<li>Dashboard عربي live</li>
+<li>Login/Auth مدمج</li>
+<li>سعر الباقة المنفردة: 350 ج.م</li>
+</ul>
+<a href="NetGuard-Presentation.html" class="btn btn-outline" style="width:100%;justify-content:center">عرض تقديمي</a>
+</div>
+
+</div>
+</div>
+
+<div class="section" id="pricing">
+<div class="section-title">الباقات</div>
+<div class="section-desc">خطط مرنة تناسب احتياجك — مع الباقة المزدوجة وفر 150 ج.م</div>
+<div class="pricing-grid">
+
+<div class="pricing-card">
+<div class="pricing-name">CYBER SHIELD</div>
+<div class="pricing-sub">اشتراك شهري</div>
+<div class="pricing-price">200 <small>ج.م</small></div>
+<div class="pricing-period">شهرياً</div>
+<ul class="pricing-features">
+<li>جميع ميزات CYBER SHIELD</li>
+li>تحديثات دورية</li>
+<li>دعم فني عبر واتساب</li>
+<li>تحديث قاعدة بيانات الفيروسات</li>
+</ul>
+<a href="#payment" class="btn btn-primary" style="width:100%;justify-content:center">اشترك الآن</a>
+</div>
+
+<div class="pricing-card">
+<div class="pricing-name">NetGuard Monitor</div>
+<div class="pricing-sub">اشتراك شهري</div>
+<div class="pricing-price">250 <small>ج.م</small></div>
+<div class="pricing-period">شهرياً</div>
+<ul class="pricing-features">
+<li>جميع ميزات NetGuard Monitor</li>
+<li>WhatsApp webhook notification</li>
+<li>دعم فني عبر واتساب</li>
+<li>تحديثات دورية</li>
+</ul>
+<a href="#payment" class="btn btn-primary" style="width:100%;justify-content:center">اشترك الآن</a>
+</div>
+
+<div class="pricing-card featured">
+<div class="pricing-name">الباقة المزدوجة 🏆</div>
+<div class="pricing-sub">CYBER SHIELD + NetGuard Monitor</div>
+<div class="pricing-price">500 <small>ج.م</small></div>
+<div class="pricing-period">شهرياً (وفر 150 ج.م)</div>
+<ul class="pricing-features">
+<li>جميع ميزات CYBER SHIELD</li>
+<li>جميع ميزات NetGuard Monitor</li>
+<li>خصم 150 ج.م عن الشراء المنفرد</li>
+<li>دعم فني أولوية عبر واتساب</li>
+<li>تحديثات دورية لكلا المنتجين</li>
+</ul>
+<a href="#payment" class="btn btn-primary" style="width:100%;justify-content:center">اشترك الآن</a>
+</div>
+
+<div class="pricing-card">
+<div class="pricing-name">CYBER SHIELD</div>
+<div class="pricing-sub">اشتراك سنوي</div>
+<div class="pricing-price">2000 <small>ج.م</small></div>
+<div class="pricing-period">سنوياً (وفر 400 ج.م)</div>
+<ul class="pricing-features">
+<li>جميع ميزات CYBER SHIELD</li>
+<li>تحديثات دورية</li>
+<li>دعم فني أولوية</li>
+<li>تحديث قاعدة بيانات الفيروسات</li>
+</ul>
+<a href="#payment" class="btn btn-primary" style="width:100%;justify-content:center">اشترك الآن</a>
+</div>
+
+<div class="pricing-card">
+<div class="pricing-name">NetGuard Monitor</div>
+<div class="pricing-sub">اشتراك سنوي</div>
+<div class="pricing-price">3000 <small>ج.م</small></div>
+<div class="pricing-period">سنوياً (وفر 600 ج.م)</div>
+<ul class="pricing-features">
+<li>جميع ميزات NetGuard Monitor</li>
+<li>WhatsApp webhook notification</li>
+<li>دعم فني أولوية</li>
+<li>تحديثات دورية</li>
+</ul>
+<a href="#payment" class="btn btn-primary" style="width:100%;justify-content:center">اشترك الآن</a>
+</div>
+
+<div class="pricing-card">
+<div class="pricing-name">الباقة المزدوجة 🏆</div>
+<div class="pricing-sub">CYBER SHIELD + NetGuard Monitor</div>
+<div class="pricing-price">4500 <small>ج.م</small></div>
+<div class="pricing-period">سنوياً (وفر 1500 ج.م)</div>
+<ul class="pricing-features">
+<li>جميع ميزات CYBER SHIELD</li>
+<li>جميع ميزات NetGuard Monitor</li>
+<li>خصم 1500 ج.م عن الشراء المنفرد</li>
+<li>دعم فني أولوية VIP</li>
+<li>تحديثات دورية لكلا المنتجين</li>
+</ul>
+<a href="#payment" class="btn btn-primary" style="width:100%;justify-content:center">اشترك الآن</a>
+</div>
+
+</div>
+</div>
+
+<div class="section" id="payment">
+<div class="section-title">طرق الدفع</div>
+<div class="payment-info">
+<h3>💳 فودافون كاش</h3>
+<p>ادفع عبر فودافون كاش على الرقم التالي، ثم أرسل الإيصال على واتساب لتأكيد الاشتراك</p>
+<div class="payment-number">0109 3456 565</div>
+<p style="margin-top:15px">📲 بعد الدفع، أرسل صورة الإيصال على واتساب: <strong>01093456565</strong></p>
+<p style="margin-top:10px">⏳ سيتم تفعيل الاشتراك فور تأكيد الدفع (خلال 30 دقيقة)</p>
+<div class="payment-note">لا توجد نسخة تجريبية — الاشتراك يبدأ فور تأكيد الدفع</div>
+<a href="https://wa.me/201093456565" class="btn btn-whatsapp" style="margin-top:20px;justify-content:center">أرسل الإيصال على واتساب</a>
+</div>
+</div>
+
+<div class="presentation-section" id="presentations">
+<div class="section-title">العروض التقديمية</div>
+<div class="section-desc">تعرف على منتجاتنا بشكل أعمق من خلال العروض التقديمية التفاعلية</div>
+
+<div class="presentation-frame">
+<iframe src="NetGuard-Presentation.html" title="NetGuard Presentation"></iframe>
+</div>
+<div style="text-align:center;margin-top:10px;margin-bottom:40px">
+<a href="NetGuard-Presentation.html" target="_blank" class="btn btn-outline">فتح NetGuard Monitor في صفحة كاملة</a>
+</div>
+
+<div class="presentation-frame">
+<iframe src="CYBER-SHIELD-Presentation.html" title="CYBER SHIELD Presentation"></iframe>
+</div>
+<div style="text-align:center;margin-top:10px;margin-bottom:20px">
+<a href="CYBER-SHIELD-Presentation.html" target="_blank" class="btn btn-outline">فتح CYBER SHIELD في صفحة كاملة</a>
+</div>
+</div>
+
+<div class="footer">
+<div class="footer-links">
+<a href="#products">المنتجات</a>
+<a href="#pricing">الباقات</a>
+<a href="#presentations">العروض التقديمية</a>
+<a href="#payment">الدفع</a>
+<a href="guide.html">دليل الاستخدام</a>
+<a href="https://wa.me/201093456565" target="_blank">واتساب</a>
+</div>
+<p>© 2026 ZELZAL SECURITY — جميع الحقوق محفوظة</p>
+</div>
+
+</body>
+</html>
