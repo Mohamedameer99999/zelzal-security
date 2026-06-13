@@ -1,103 +1,88 @@
 <!DOCTYPE html><html dir="rtl" lang="ar"><head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>CYBER SHIELD v5.0.0</title>
+<title>NetGuard Monitor — مراقب الشبكة</title>
 <link rel="stylesheet" href="css/style.css">
-<style>
-.license-overlay{position:fixed;inset:0;background:#0a0a15;z-index:9999;display:flex;align-items:center;justify-content:center}
-.license-box{background:#12122a;border:1px solid rgba(0,245,160,.12);border-radius:16px;padding:48px 40px;width:420px;max-width:90vw;text-align:center}
-.license-box .logo{font-size:56px;margin-bottom:8px}
-.license-box h1{font-size:24px;font-weight:900;background:linear-gradient(135deg,#00f5a0,#00d9f5);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.license-box p{font-size:13px;color:#8888aa;margin:6px 0 24px}
-.license-box input{width:100%;padding:12px 16px;border-radius:10px;border:1px solid rgba(0,245,160,.12);background:#0f0f1e;color:#e8e8f0;font-size:14px;outline:none;text-align:center;direction:ltr;margin-bottom:16px}
-.license-box input:focus{border-color:#00f5a0}
-.license-box .btn{width:100%;padding:14px;border-radius:10px;border:none;background:linear-gradient(135deg,#00f5a0,#00d9f5);color:#0a0a15;font-size:16px;font-weight:700;cursor:pointer}
-.license-box .btn:hover{transform:scale(1.02)}
-.license-box .error{color:#ff4444;font-size:13px;margin-top:12px}
-.license-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 14px;border-radius:20px;font-size:12px;font-weight:600;background:rgba(0,245,160,.1);border:1px solid rgba(0,245,160,.2);color:#00f5a0}
-.dashboard{display:block}
-.arp-list{padding:0}
-.arp-item{display:flex;align-items:center;gap:12px;padding:10px 20px;border-bottom:1px solid rgba(255,255,255,.03);font-size:14px}
-.arp-item:last-child{border-bottom:none}
-.arp-item .ip{color:#00d9f5;font-weight:600;direction:ltr}
-.arp-item .macs{color:#ffaa00;direction:ltr;font-size:12px}
-.arp-item .time{color:#666;font-size:12px}
-</style>
 </head><body>
 
-<div id="licenseOverlay" class="license-overlay">
-  <div class="license-box">
-    <div class="logo">⚔️</div>
-    <h1>CYBER SHIELD</h1>
-    <p>الرجاء إدخال مفتاح الترخيص لتفعيل النظام</p>
-    <form onsubmit="return activateLicense(event)">
-      <input type="text" id="licenseKey" placeholder="XXXXX-XXXXX-XXXXX-XXXXX-XXXXXXXX" required autocomplete="off">
-      <button type="submit" class="btn" id="activateBtn">تفعيل الترخيص</button>
-      <div id="licenseError" class="error"></div>
-    </form>
-  </div>
-</div>
-
-<div id="dashboard" class="dashboard" style="display:none">
-
 <nav>
-  <div class="nav-brand">⚔️ CYBER SHIELD v5.0.0</div>
+  <div class="nav-brand">🛡️ NetGuard Monitor</div>
   <div class="nav-info">
-    <span id="licenseBadge" class="license-badge"></span>
     <span id="navStatus" class="status-dot green"></span>
-    <span id="navInfo">نشط</span>
+    <span id="navUptime">—</span>
+    <span style="color:#666;margin:0 8px">|</span>
+    <span id="navDevices">0 أجهزة</span>
+    <span id="licenseBadge" style="display:none;color:#00f5a0;font-size:0.85em;margin-right:10px">🔐 مرخص</span>
   </div>
 </nav>
 
-<div class="container">
+<!-- LICENSE OVERLAY -->
+<div id="licenseOverlay" style="display:none;position:fixed;inset:0;background:rgba(5,5,8,.95);z-index:9999;align-items:center;justify-content:center;flex-direction:column">
+  <div style="background:#12122a;border:1px solid rgba(0,245,160,.12);border-radius:16px;padding:48px 40px;width:400px;max-width:90vw;text-align:center">
+    <div style="font-size:48px;margin-bottom:12px">🔐</div>
+    <h2 style="font-size:20px;font-weight:700;margin-bottom:4px;color:#e8e8f0">تفعيل الترخيص</h2>
+    <p style="font-size:13px;color:#8888aa;margin-bottom:24px">يرجى إدخال مفتاح الترخيص لتفعيل النظام</p>
+    <input type="text" id="licenseKeyInput" placeholder="XXXXX-XXXXX-XXXXX-YYYYMMDD-XXXXXXXX" style="width:100%;padding:12px 16px;border-radius:10px;border:1px solid rgba(0,245,160,.12);background:#0f0f1e;color:#e8e8f0;font-size:14px;text-align:center;direction:ltr;outline:none;margin-bottom:16px;font-family:monospace">
+    <button onclick="activateLicense(document.getElementById('licenseKeyInput').value)" style="width:100%;padding:14px;border-radius:10px;border:none;background:linear-gradient(135deg,#00f5a0,#00d9f5);color:#0a0a15;font-size:16px;font-weight:700;cursor:pointer">تفعيل</button>
+    <div id="licenseMsg" style="margin-top:12px;font-size:13px;display:none"></div>
+  </div>
+</div>
 
+<div class="container">
+  <!-- STATS ROW -->
   <div class="stats-row">
     <div class="stat-card"><div class="stat-val" id="statDevices">0</div><div class="stat-lbl">الأجهزة</div></div>
+    <div class="stat-card"><div class="stat-val" id="statOnline">0</div><div class="stat-lbl">متصل</div></div>
     <div class="stat-card"><div class="stat-val" id="statAlerts">0</div><div class="stat-lbl">تنبيهات</div></div>
-    <div class="stat-card"><div class="stat-val" id="statThreats">0</div><div class="stat-lbl">تهديدات</div></div>
-    <div class="stat-card"><div class="stat-val" id="statConns">0</div><div class="stat-lbl">اتصالات</div></div>
+    <div class="stat-card"><div class="stat-val" id="statSpeed">0</div><div class="stat-lbl">Mbps</div></div>
+    <div class="stat-card"><div class="stat-val" id="statSent">0</div><div class="stat-lbl">أرسل (MB)</div></div>
+    <div class="stat-card"><div class="stat-val" id="statRecv">0</div><div class="stat-lbl">استقبل (MB)</div></div>
   </div>
 
-  <div class="toolbar">
-    <button class="tool-btn" onclick="runScan()">📡 فحص الشبكة</button>
-    <button class="tool-btn" onclick="runIDS()">🛡️ فحص IDS</button>
-    <button class="tool-btn" onclick="runUSB()">🔌 فحص USB</button>
-    <button class="tool-btn" onclick="runAV()">🦠 فحص ملفات</button>
-    <button class="tool-btn" onclick="runKL()">⌨️ Keylogger</button>
-    <button class="tool-btn" onclick="runWiFi()">📶 WiFi</button>
-    <button class="tool-btn" onclick="runARP()">🔍 ARP</button>
-  </div>
-
-  <div class="panel">
-    <div class="panel-hdr">⚠️ التنبيهات</div>
-    <div id="alertsList"></div>
-  </div>
-
-  <div class="panel">
-    <div class="panel-hdr">🖧 ARP Spoofing</div>
-    <div style="display:flex;gap:10px;padding:10px 20px;border-bottom:1px solid rgba(255,255,255,.03)">
-      <button class="tool-btn" onclick="startARPWatch()">▶️ بدء المراقبة</button>
-      <button class="tool-btn" onclick="stopARPWatch()">⏹️ إيقاف</button>
-      <button class="tool-btn" onclick="runARP()">🔄 فحص الآن</button>
+  <div class="grid-2">
+    <!-- DEVICES -->
+    <div class="panel">
+      <div class="panel-hdr">📡 الأجهزة المتصلة</div>
+      <div class="table-wrap">
+        <table><thead><tr><th>IP</th><th>MAC</th><th>الجهاز</th><th>المزود</th><th>آخر ظهور</th><th>الحالة</th></tr></thead>
+        <tbody id="devicesBody"></tbody></table>
+      </div>
     </div>
-    <div id="arpList" class="arp-list">
-      <div style="padding:30px;text-align:center;color:#555">اضغط "فحص الآن" للكشف</div>
+
+    <!-- ALERTS -->
+    <div class="panel">
+      <div class="panel-hdr">⚠️ التنبيهات</div>
+      <div id="alertsList"></div>
     </div>
   </div>
 
-  <div class="panel">
-    <div class="panel-hdr">📡 الأجهزة</div>
-    <div class="table-wrap">
-      <table><thead><tr><th>IP</th><th>MAC</th><th>الجهاز</th><th>المزود</th><th>الحالة</th></tr></thead>
-      <tbody id="devicesBody"></tbody></table>
+  <div class="grid-2">
+    <!-- BANDWIDTH CHART -->
+    <div class="panel">
+      <div class="panel-hdr">📊 سرعة الشبكة (آخر 30 دقيقة)</div>
+      <canvas id="bwChart" height="200"></canvas>
+    </div>
+
+    <!-- NETWORK HISTORY -->
+    <div class="panel">
+      <div class="panel-hdr">📈 تاريخ الشبكة (آخر 6 ساعات)</div>
+      <canvas id="historyChart" height="200"></canvas>
     </div>
   </div>
 
-  <div class="panel" id="resultPanel" style="display:none">
-    <div class="panel-hdr">📋 نتيجة الفحص</div>
-    <pre id="resultContent" style="color:#00f5a0;font-size:13px;line-height:1.6;max-height:300px;overflow:auto;padding:16px;background:#0f0f1e;border-radius:10px;direction:ltr;text-align:left"></pre>
+  <!-- WiFi / ARP -->
+  <div class="grid-2">
+    <div class="panel">
+      <div class="panel-hdr">📶 معلومات WiFi</div>
+      <div class="table-wrap">
+        <table><thead><tr><th>IP</th><th>MAC</th><th>النوع</th><th>الوقت</th></tr></thead>
+        <tbody id="arpBody"></tbody></table>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-hdr">🔐 الترخيص</div>
+      <div id="licenseInfo" style="padding:20px;text-align:center;color:#888">جاري التحقق...</div>
+    </div>
   </div>
-
-</div>
 </div>
 
 <script src="js/app.js"></script>
