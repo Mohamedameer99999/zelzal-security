@@ -1,0 +1,12 @@
+{
+  "name": "ZELZAL SECURITY",
+  "short_name": "ZELZAL",
+  "description": "حلول الأمن السيبراني والمراقبة",
+  "start_url": "/zelzal-security/",
+  "display": "standalone",
+  "background_color": "#0a0a15",
+  "theme_color": "#0a0a15",
+  "lang": "ar",
+  "dir": "rtl",
+  "icons": []
+}

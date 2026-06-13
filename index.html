@@ -2,12 +2,29 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ZELZAL SECURITY - حلول الأمن السيبراني</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>ZELZAL SECURITY - حلول الأمن السيبراني والمراقبة</title>
+<meta name="description" content="منتجات أمن سيبراني متكاملة: CYBER SHIELD لحماية الشبكات ومكافحة الفيروسات، و NetGuard Monitor لمراقبة الأجهزة. باقات شهرية وسنوية بأسعار تنافسية.">
+<meta name="keywords" content="أمن سيبراني, حماية شبكات, فحص ثغرات, مكافحة فيروسات, مراقبة شبكة, كشف اختراق, CYBER SHIELD, NetGuard, ZELZAL SECURITY">
+<meta name="author" content="ZELZAL SECURITY">
+<meta name="theme-color" content="#0a0a15">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="ZELZAL Security">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='80'>⚡</text></svg>">
+<meta property="og:title" content="ZELZAL SECURITY - حلول الأمن السيبراني">
+<meta property="og:description" content="منتجات أمن سيبراني متكاملة: CYBER SHIELD و NetGuard Monitor. باقات شهرية وسنوية.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mohamedameer99999.github.io/zelzal-security/">
+<meta property="og:image" content="https://mohamedameer99999.github.io/zelzal-security/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ZELZAL SECURITY - حلول الأمن السيبراني">
+<meta name="twitter:description" content="منتجات أمن سيبراني متكاملة: CYBER SHIELD و NetGuard Monitor.">
 <script>
 // ---------- إعدادات رقم الدفع ----------
 const PAYMENT = {
-phone: "01093456565", // الرقم الأساسي (مع الصفر)
+phone: "01093456565",
 countries: [
 { code: "+20", name: "مصر", label: "+20 مصر" },
 { code: "+966", name: "السعودية", label: "+966 السعودية" },
@@ -17,7 +34,7 @@ countries: [
 { code: "+965", name: "الكويت", label: "+965 الكويت" },
 { code: "+968", name: "عمان", label: "+968 عمان" }
 ],
-defaultCountry: 0 // index لمصر
+defaultCountry: 0
 };
 </script>
 <style>
@@ -99,14 +116,51 @@ a{text-decoration:none;color:inherit}
 .footer-links{display:flex;gap:20px;justify-content:center;margin-bottom:15px}
 .footer-links a{color:#889;font-size:13px;transition:color .3s}
 .footer-links a:hover{color:#00f5a0}
+/* Scroll Reveal */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .6s ease,transform .6s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+/* How it Works */
+.steps-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;margin-top:30px}
+.step-card{background:#111122;border-radius:14px;padding:30px 20px;text-align:center;border:1px solid #ffffff0a;transition:all .3s;position:relative}
+.step-card:hover{border-color:#00f5a033;transform:translateY(-3px)}
+.step-num{width:44px;height:44px;background:linear-gradient(135deg,#00f5a0,#00d9f5);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:#0a0a15;margin:0 auto 15px}
+.step-card h4{font-size:15px;margin-bottom:8px}
+.step-card p{color:#889;font-size:13px;line-height:1.6}
+/* Stats */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:20px;margin-top:30px}
+.stat-card{background:#111122;border-radius:14px;padding:30px 20px;text-align:center;border:1px solid #ffffff0a}
+.stat-num{font-size:36px;font-weight:800;background:linear-gradient(135deg,#00f5a0,#00d9f5);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.stat-label{color:#889;font-size:13px;margin-top:8px}
+/* FAQ Accordion */
+.faq-list{max-width:700px;margin:30px auto 0}
+.faq-item{background:#111122;border-radius:10px;margin-bottom:10px;border:1px solid #ffffff0a;overflow:hidden}
+.faq-q{padding:16px 20px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:600;transition:background .3s}
+.faq-q:hover{background:#ffffff08}
+.faq-q .arrow{font-size:12px;color:#667;transition:transform .3s}
+.faq-item.open .faq-q .arrow{transform:rotate(180deg)}
+.faq-a{padding:0 20px;max-height:0;overflow:hidden;transition:all .3s ease;color:#889;font-size:13px;line-height:1.7}
+.faq-item.open .faq-a{padding:0 20px 16px;max-height:300px}
 /* Mobile */
 @media(max-width:768px){
-.header{padding:15px 20px;flex-direction:column;gap:10px}
-.nav{flex-wrap:wrap;justify-content:center}
+.header{padding:12px 20px;flex-direction:row}
+.logo-text{font-size:18px}
+.nav{display:none;position:absolute;top:60px;left:0;right:0;background:#0d0d1a;flex-direction:column;padding:15px 20px;border-bottom:1px solid #00f5a033;z-index:99;gap:0}
+.nav.open{display:flex}
+.nav a{padding:12px 0;border-bottom:1px solid #ffffff08;width:100%}
+.nav a:last-child{border-bottom:none}
+.hamburger{display:flex}
 .hero{padding:60px 20px 40px}
-.hero h1{font-size:32px}
-.section{padding:60px 20px}
-.presentation-frame{height:400px}
+.hero h1{font-size:28px}
+.hero p{font-size:15px}
+.section{padding:50px 20px}
+.section-title{font-size:26px}
+.pricing-grid{grid-template-columns:1fr}
+.presentation-frame{height:300px}
+.steps-grid{grid-template-columns:1fr}
+.stats-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(min-width:769px){
+.hamburger{display:none}
 }
 </style>
 </head>
@@ -117,12 +171,14 @@ a{text-decoration:none;color:inherit}
 <div class="logo-icon">Z</div>
 <div class="logo-text">ZELZAL SECURITY</div>
 </div>
-<div class="nav">
-<a href="#products">المنتجات</a>
-<a href="#pricing">الباقات</a>
-<a href="#presentations">العروض</a>
-<a href="#payment">الدفع</a>
-<a href="guide.html">الدليل</a>
+<div class="hamburger" onclick="toggleMenu()" id="hamburgerBtn">☰</div>
+<div class="nav" id="mainNav">
+<a href="#products" onclick="closeMenu()">المنتجات</a>
+<a href="#pricing" onclick="closeMenu()">الباقات</a>
+<a href="#presentations" onclick="closeMenu()">العروض</a>
+<a href="#payment" onclick="closeMenu()">الدفع</a>
+<a href="payment.html" onclick="closeMenu()">اشترك الآن</a>
+<a href="guide.html" onclick="closeMenu()">الدليل</a>
 </div>
 </div>
 
@@ -131,7 +187,8 @@ a{text-decoration:none;color:inherit}
 <p>منتجات متكاملة لحماية شبكتك من الاختراقات، مراقبة الأجهزة، كشف الثغرات، والحماية من الفيروسات وبرامج الفدية — بأسعار تنافسية ودعم فني مستمر</p>
 <div class="hero-btns">
 <a href="#products" class="btn btn-primary">اكتشف المنتجات</a>
-<a href="#payment" class="btn btn-outline">احصل عليه الآن</a>
+<a href="payment.html" class="btn btn-outline">اشترك الآن</a>
+<a href="#how-it-works" class="btn btn-outline" style="border-color:#667;color:#889">كيف يعمل</a>
 <a id="heroWhatsapp" href="https://wa.me/201093456565" class="btn btn-whatsapp" target="_blank">واتساب</a>
 </div>
 </div>
@@ -144,16 +201,18 @@ a{text-decoration:none;color:inherit}
 <div class="product-card cs">
 <div class="product-badge">الأكثر شمولاً</div>
 <div class="product-icon">🛡️</div>
-<div class="product-title">CYBER SHIELD v4.0</div>
-<div class="product-desc">منصة أمن سيبراني متكاملة تجمع بين فحص الثغرات، كشف الاختراق، مضاد فيروسات، التحكم في USB، ومكافحة كيلوجر — كل ذلك في واجهة تحكم عربية موحدة.</div>
+<div class="product-title">CYBER SHIELD <span style="font-size:14px;color:#00f5a0">v5.0.0</span></div>
+<div class="product-desc">منصة أمن سيبراني متكاملة تجمع بين فحص الثغرات، كشف الاختراق، مضاد فيروسات، مسح WiFi، كشف ARP spoofing، التحكم في USB، ومكافحة كيلوجر — مع نظام تراخيص آمن.</div>
 <ul class="product-features">
 <li>Network Scanner + Port Scanner</li>
 <li>IDS/IPS لكشف الاختراق</li>
 <li>Anti-Virus (real-time + manual)</li>
 <li>USB Control (تعطيل/تشغيل)</li>
 <li>Anti-Keylogger</li>
+<li>WiFi Scanner (مسح الشبكات اللاسلكية)</li>
+<li>ARP Detector (كشف هجمات spoofing)</li>
+<li>License Key System (ربط MAC + صلاحية)</li>
 <li>Dashboard عربي live</li>
-<li>Login/Auth مدمج</li>
 <li>سعر الباقة المنفردة: 300 ج.م</li>
 </ul>
 <a href="CYBER-SHIELD-Presentation.html" class="btn btn-outline" style="width:100%;justify-content:center">عرض تقديمي</a>
@@ -162,20 +221,74 @@ a{text-decoration:none;color:inherit}
 <div class="product-card ng">
 <div class="product-badge">مراقب الشبكة</div>
 <div class="product-icon">📡</div>
-<div class="product-title">NetGuard Monitor v1.1</div>
-<div class="product-desc">نظام مراقبة شبكة متخصص في كشف الأجهزة الجديدة غير المصرح بها، فحص المنافذ، وإشعارات فورية عبر WhatsApp عند ظهور أي جهاز غريب على شبكتك.</div>
+<div class="product-title">NetGuard Monitor <span style="font-size:14px;color:#00d9f5">v1.2.0</span></div>
+<div class="product-desc">نظام مراقبة شبكة متخصص في كشف الأجهزة الجديدة غير المصرح بها، فحص المنافذ، كشف ARP spoofing، وإشعارات فورية عبر WhatsApp عند ظهور أي جهاز غريب على شبكتك.</div>
 <ul class="product-features">
 <li>Network Scanner (subnet مخصص)</li>
 <li>كشف الأجهزة الجديدة تلقائيًا</li>
 <li>WhatsApp webhook notification</li>
 <li>Port Scanner</li>
+<li>ARP Detector (كشف هجمات spoofing)</li>
+<li>License Key System (ربط MAC + صلاحية)</li>
 <li>Dashboard عربي live</li>
-<li>Login/Auth مدمج</li>
 <li>سعر الباقة المنفردة: 350 ج.م</li>
 </ul>
 <a href="NetGuard-Presentation.html" class="btn btn-outline" style="width:100%;justify-content:center">عرض تقديمي</a>
 </div>
 
+</div>
+</div>
+
+<div class="section reveal" id="how-it-works">
+<div class="section-title">كيف تعمل الخدمة</div>
+<div class="section-desc">أربع خطوات بسيطة — من الاختيار إلى التفعيل</div>
+<div class="steps-grid">
+<div class="step-card">
+<div class="step-num">1</div>
+<h4>اختر باقتك</h4>
+<p>اختر CYBER SHIELD أو NetGuard Monitor أو الباقة المزدوجة — شهري أو سنوي</p>
+</div>
+<div class="step-card">
+<div class="step-num">2</div>
+<h4>ادفع عبر فودافون كاش</h4>
+<p>حول المبلغ على الرقم المحدد وأحتفظ بالإيصال</p>
+</div>
+<div class="step-card">
+<div class="step-num">3</div>
+<h4>أرسل الإيصال على واتساب</h4>
+<p>صور الإيصال وأرسله على واتساب — سيتم تفعيل حسابك خلال 30 دقيقة</p>
+</div>
+<div class="step-card">
+<div class="step-num">4</div>
+<h4>استلم License Key وابدأ</h4>
+<p>نرسل لك مفتاح الترخيص مع رابط التحميل وتعليمات التشغيل</p>
+</div>
+</div>
+<div style="text-align:center;margin-top:25px">
+<a href="payment.html" class="btn btn-primary">ابدأ الآن</a>
+</div>
+</div>
+
+<div class="section reveal" id="stats">
+<div class="section-title">إحصائيات</div>
+<div class="section-desc">نظامنا ينمو يومًا بعد يوم</div>
+<div class="stats-grid">
+<div class="stat-card">
+<div class="stat-num">+500</div>
+<div class="stat-label">تهديد تم كشفه</div>
+</div>
+<div class="stat-card">
+<div class="stat-num">24/7</div>
+<div class="stat-label">مراقبة مستمرة</div>
+</div>
+<div class="stat-card">
+<div class="stat-num">99%</div>
+<div class="stat-label">نسبة كشف</div>
+</div>
+<div class="stat-card">
+<div class="stat-num">7</div>
+<div class="stat-label">دول مدعومة</div>
+</div>
 </div>
 </div>
 
@@ -195,7 +308,7 @@ a{text-decoration:none;color:inherit}
 <li>دعم فني عبر واتساب</li>
 <li>تحديث قاعدة بيانات الفيروسات</li>
 </ul>
-<a href="#payment" class="btn btn-primary" style="width:100%;justify-content:center">اشترك الآن</a>
+<a href="payment.html" class="btn btn-primary" style="width:100%;justify-content:center">اشترك الآن</a>
 </div>
 
 <div class="pricing-card">
@@ -209,7 +322,7 @@ a{text-decoration:none;color:inherit}
 <li>دعم فني عبر واتساب</li>
 <li>تحديثات دورية</li>
 </ul>
-<a href="#payment" class="btn btn-primary" style="width:100%;justify-content:center">اشترك الآن</a>
+<a href="payment.html" class="btn btn-primary" style="width:100%;justify-content:center">اشترك الآن</a>
 </div>
 
 <div class="pricing-card featured">
@@ -224,7 +337,7 @@ a{text-decoration:none;color:inherit}
 <li>دعم فني أولوية عبر واتساب</li>
 <li>تحديثات دورية لكلا المنتجين</li>
 </ul>
-<a href="#payment" class="btn btn-primary" style="width:100%;justify-content:center">اشترك الآن</a>
+<a href="payment.html" class="btn btn-primary" style="width:100%;justify-content:center">اشترك الآن</a>
 </div>
 
 <div class="pricing-card">
@@ -238,7 +351,7 @@ a{text-decoration:none;color:inherit}
 <li>دعم فني أولوية</li>
 <li>تحديث قاعدة بيانات الفيروسات</li>
 </ul>
-<a href="#payment" class="btn btn-primary" style="width:100%;justify-content:center">اشترك الآن</a>
+<a href="payment.html" class="btn btn-primary" style="width:100%;justify-content:center">اشترك الآن</a>
 </div>
 
 <div class="pricing-card">
@@ -252,7 +365,7 @@ a{text-decoration:none;color:inherit}
 <li>دعم فني أولوية</li>
 <li>تحديثات دورية</li>
 </ul>
-<a href="#payment" class="btn btn-primary" style="width:100%;justify-content:center">اشترك الآن</a>
+<a href="payment.html" class="btn btn-primary" style="width:100%;justify-content:center">اشترك الآن</a>
 </div>
 
 <div class="pricing-card">
@@ -267,7 +380,7 @@ a{text-decoration:none;color:inherit}
 <li>دعم فني أولوية VIP</li>
 <li>تحديثات دورية لكلا المنتجين</li>
 </ul>
-<a href="#payment" class="btn btn-primary" style="width:100%;justify-content:center">اشترك الآن</a>
+<a href="payment.html" class="btn btn-primary" style="width:100%;justify-content:center">اشترك الآن</a>
 </div>
 
 </div>
@@ -288,6 +401,44 @@ a{text-decoration:none;color:inherit}
 <p style="margin-top:10px">⏳ سيتم تفعيل الاشتراك فور تأكيد الدفع (خلال 30 دقيقة)</p>
 <div class="payment-note">لا توجد نسخة تجريبية — الاشتراك يبدأ فور تأكيد الدفع</div>
 <a id="sendReceiptBtn" href="https://wa.me/201093456565" class="btn btn-whatsapp" style="margin-top:20px;justify-content:center" target="_blank">أرسل الإيصال على واتساب</a>
+</div>
+</div>
+
+<div class="section reveal" id="faq">
+<div class="section-title">الأسئلة الشائعة</div>
+<div class="section-desc">إجابات سريعة لأكثر الأسئلة تكراراً</div>
+<div class="faq-list">
+
+<div class="faq-item" onclick="toggleFaq(this)">
+<div class="faq-q">ما هو نظام الترخيص؟ <span class="arrow">▾</span></div>
+<div class="faq-a">كل منتج يأتي مع License Key فريد (XXXXX-XXXXX-XXXXX-XXXXX-XXXXXXXX) مرتبط بجهازك عبر MAC address ومدة صلاحية محددة (شهر/سنة). يتم توليد المفتاح بعد تأكيد الدفع وإرساله لك على واتساب.</div>
+</div>
+
+<div class="faq-item" onclick="toggleFaq(this)">
+<div class="faq-q">هل أحتاج إلى اتصال إنترنت دائم؟ <span class="arrow">▾</span></div>
+<div class="faq-a">نعم، المنتجات تحتاج اتصال إنترنت للتشغيل (للتحقق من الترخيص وتحديث قاعدة البيانات). تعمل على Windows 10/11.</div>
+</div>
+
+<div class="faq-item" onclick="toggleFaq(this)">
+<div class="faq-q">ماذا يحدث عند انتهاء الاشتراك؟ <span class="arrow">▾</span></div>
+<div class="faq-a">عند انتهاء صلاحية الترخيص، يتوقف المنتج عن العمل. يمكنك تجديد الاشتراك بنفس السعر ويتم إصدار مفتاح جديد بنفس الإجراء.</div>
+</div>
+
+<div class="faq-item" onclick="toggleFaq(this)">
+<div class="faq-q">هل يمكن نقل الترخيص لجهاز آخر؟ <span class="arrow">▾</span></div>
+<div class="faq-a">الترخيص مرتبط بـ MAC address الجهاز الذي تم التفعيل عليه أول مرة. للنقل لجهاز آخر، تواصل مع الدعم الفني لإعادة تعيين المفتاح (قد تطبق رسوم).</div>
+</div>
+
+<div class="faq-item" onclick="toggleFaq(this)">
+<div class="faq-q">هل يوجد دعم فني؟ <span class="arrow">▾</span></div>
+<div class="faq-a">نعم، دعم فني عبر واتساب في أوقات العمل الرسمية. المشتركين في الباقة المزدوجة أو الباقات السنوية يحصلون على دعم أولوية.</div>
+</div>
+
+<div class="faq-item" onclick="toggleFaq(this)">
+<div class="faq-q">ماذا لو ظهر تحذير من Windows Defender؟ <span class="arrow">▾</span></div>
+<div class="faq-a">Windows Defender قد يمنع تشغيل بعض ملفات الأمان بسبب طبيعة عملها (network scanning, port access). هذا تحذير شائع ولا يعني وجود فيروس. أضف المنتج إلى قائمة الاستثناءات في Defender حسب التعليمات الموجودة في الدليل.</div>
+</div>
+
 </div>
 </div>
 
@@ -314,8 +465,9 @@ a{text-decoration:none;color:inherit}
 <div class="footer-links">
 <a href="#products">المنتجات</a>
 <a href="#pricing">الباقات</a>
+<a href="payment.html">اشترك الآن</a>
 <a href="#presentations">العروض التقديمية</a>
-<a href="#payment">الدفع</a>
+<a href="#faq">الأسئلة الشائعة</a>
 <a href="guide.html">دليل الاستخدام</a>
 <a id="footerWhatsapp" href="https://wa.me/201093456565" target="_blank">واتساب</a>
 </div>
@@ -334,13 +486,14 @@ const wa = cc.replace('+', '') + waNum;
 document.getElementById('paymentNumber').textContent = localDisplay;
 document.getElementById('internationalNumber').textContent = intlDisplay;
 document.getElementById('whatsappDisplay').textContent = localDisplay;
-document.getElementById('sendReceipt').href = 'https://wa.me/' + wa;
+document.getElementById('sendReceiptBtn').href = 'https://wa.me/' + wa;
 document.getElementById('heroWhatsapp').href = 'https://wa.me/' + wa;
 document.getElementById('footerWhatsapp').href = 'https://wa.me/' + wa;
 }
 
 function initPayment() {
 const sel = document.getElementById('countrySelect');
+if (!sel) return;
 PAYMENT.countries.forEach((c, i) => {
 const opt = document.createElement('option');
 opt.value = i; opt.textContent = c.label;
@@ -350,6 +503,28 @@ sel.appendChild(opt);
 updatePayment();
 }
 initPayment();
+
+// Hamburger menu
+function toggleMenu() {
+document.getElementById('mainNav').classList.toggle('open');
+}
+function closeMenu() {
+document.getElementById('mainNav').classList.remove('open');
+}
+
+// Scroll Reveal
+(function() {
+const els = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver(entries => {
+entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, { threshold: 0.1 });
+els.forEach(el => observer.observe(el));
+})();
+
+// FAQ Accordion
+function toggleFaq(el) {
+el.classList.toggle('open');
+}
 </script>
 
 </body>
