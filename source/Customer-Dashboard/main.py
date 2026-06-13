@@ -35,8 +35,8 @@ def init_db():
     conn.close()
 
 def gen_license(product="cybershield", days=30):
-    rand = secrets.token_hex(8).upper()
-    key_part = "-".join(rand[i:i+5] for i in range(0, 16, 5))
+    rand = secrets.token_hex(10).upper()
+    key_part = "-".join(rand[i:i+5] for i in range(0, 20, 5))
     expiry = (datetime.datetime.now() + datetime.timedelta(days=days)).strftime("%Y%m%d")
     payload = key_part + expiry
     sig = hmac.new(SECRET_KEY.encode(), payload.encode(), hashlib.sha256).hexdigest()[:8].upper()
