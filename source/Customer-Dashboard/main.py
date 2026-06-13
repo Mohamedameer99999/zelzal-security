@@ -3,7 +3,7 @@ from flask import Flask, render_template, request, jsonify, session, redirect
 
 app = Flask(__name__)
 app.secret_key = secrets.token_hex(32)
-DB_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "Database")
+DB_DIR = os.getenv("DASHBOARD_DB_DIR") or os.path.join(os.path.dirname(os.path.abspath(__file__)), "Database")
 DB = os.path.join(DB_DIR, "customers.db")
 os.makedirs(DB_DIR, exist_ok=True)
 SECRET_KEY = "Z3lzYWxTZWN1cml0eTIwMjU="
@@ -160,10 +160,12 @@ def stats():
     conn.close()
     return jsonify({"monthly": monthly, "yearly": yearly, "total": monthly + yearly})
 
+init_db()
+
 if __name__ == "__main__":
-    init_db()
-    port = 8080
-    webbrowser.open(f"http://localhost:{port}")
+    port = int(os.getenv("PORT", 8080))
+    try: webbrowser.open(f"http://localhost:{port}")
+    except: pass
     print(f"\n== Customer Dashboard: http://localhost:{port} ==")
     print(f"   Username: admin | Password: admin123")
     app.run(host="0.0.0.0", port=port, debug=False)

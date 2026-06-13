@@ -1,0 +1,44 @@
+نشر Dashboard على PythonAnywhere
+===================================
+https://www.pythonanywhere.com
+
+الخطوات:
+
+1. افتح https://www.pythonanywhere.com ← سجل حساب مجاني
+
+2. افتح Bash console من Dashboard
+
+3. ارفع الملفات:
+   git clone https://github.com/Mohamedameer99999/zelzal-security.git
+   أو ارفع main.py + templates/ يدويًا عبر Files tab
+
+4. هيئ البيئة:
+   cd zelzal-security/source/Customer-Dashboard
+   pip install --user flask
+
+5. حدد مسار قاعدة البيانات:
+   export DASHBOARD_DB_DIR=$HOME
+
+6. افتح Web tab ← Add a new web app
+   - Manual configuration → Python 3.12 → Next
+
+7. في WSGI configuration file (/var/www/yourusername_pythonanywhere_com_wsgi.py):
+   import sys
+   import os
+   os.environ['DASHBOARD_DB_DIR'] = os.path.expanduser('~')
+   path = '/home/yourusername/zelzal-security/source/Customer-Dashboard'
+   if path not in sys.path: sys.path.append(path)
+   from main import app
+
+8. في Static files:
+   /static/  →  /home/yourusername/zelzal-security/source/Customer-Dashboard/static/
+
+9. ارجع للـ Web tab ← Reload
+
+10. افتح الرابط: yourusername.pythonanywhere.com
+    username: admin | password: admin123
+
+ملاحظات:
+- غير كلمة السر admin123 بعد أول دخول
+- قاعدة البيانات SQLite في مجلد Home
+- الرابط ثابت ومجاني
