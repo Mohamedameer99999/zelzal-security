@@ -175,6 +175,7 @@ a{text-decoration:none;color:inherit}
 <div class="nav" id="mainNav">
 <a href="#products" onclick="closeMenu()">المنتجات</a>
 <a href="#pricing" onclick="closeMenu()">الباقات</a>
+<a href="#new-tools" onclick="closeMenu()">أدوات جديدة</a>
 <a href="#presentations" onclick="closeMenu()">العروض</a>
 <a href="#payment" onclick="closeMenu()">الدفع</a>
 <a href="payment.html" onclick="closeMenu()">اشترك الآن</a>
@@ -237,6 +238,50 @@ a{text-decoration:none;color:inherit}
 </div>
 
 </div>
+
+<div class="product-card" style="border-top:3px solid #00f5a0">
+<div class="product-badge">جديد 🔐</div>
+<div class="product-icon">🔐</div>
+<div class="product-title">File Vault <span style="font-size:14px;color:#00f5a0">v1.0.0</span></div>
+<div class="product-desc">خزنة ملفات رقمية — تشفير أي ملف بـ AES-256-GCM مع كلمة سر، فك التشفير، وحذف آمن (3 تمريرات) يمنع استرجاع الملفات نهائياً.</div>
+<ul class="product-features">
+<li>تشفير AES-256-GCM مع PBKDF2</li>
+<li>فك تشفير الملفات المشفرة</li>
+<li>Secure Delete (3 تمريرات: Random + 0x00 + 0xFF)</li>
+<li>خزنة آمنة لتخزين الملفات</li>
+<li>سعر الباقة المنفردة: 100 ج.م</li>
+</ul>
+</div>
+
+<div class="product-card" style="border-top:3px solid #00d9f5">
+<div class="product-badge">جديد 📡</div>
+<div class="product-icon">📡</div>
+<div class="product-title">Wi-Fi Inspector <span style="font-size:14px;color:#00d9f5">v1.0.0</span></div>
+<div class="product-desc">أداة فحص أمان الشبكات اللاسلكية — مسح الشبكات القريبة، كشف الأجهزة المتصلة، فحص المنافذ، وتحليل ازدحام القنوات.</div>
+<ul class="product-features">
+<li>Wi-Fi Scanner (SSID, Signal, Security, Channel)</li>
+<li>كشف الأجهزة المتصلة بالشبكة</li>
+<li>Port Scanner</li>
+<li>تحليل ازدحام القنوات</li>
+<li>سعر الباقة المنفردة: 150 ج.م</li>
+</ul>
+</div>
+
+<div class="product-card" style="border-top:3px solid #ff5555">
+<div class="product-badge">جديد 🛑</div>
+<div class="product-icon">🛑</div>
+<div class="product-title">USB Guardian <span style="font-size:14px;color:#ff5555">v1.0.0</span></div>
+<div class="product-desc">حماية أجهزة USB — كشف الفلاشات المتصلة، فحص الفيروسات و autorun.inf، وإخراج آمن للجهاز.</div>
+<ul class="product-features">
+<li>كشف الفلاشات وعرض التفاصيل</li>
+<li>فحص التهديدات (autorun.inf, hidden exe)</li>
+<li>إخراج آمن للـ USB</li>
+<li>سجل نشاط الـ USB</li>
+<li>سعر الباقة المنفردة: 100 ج.م</li>
+</ul>
+</div>
+
+</div>
 </div>
 
 <div class="section reveal" id="how-it-works">
@@ -246,7 +291,7 @@ a{text-decoration:none;color:inherit}
 <div class="step-card">
 <div class="step-num">1</div>
 <h4>اختر باقتك</h4>
-<p>اختر CYBER SHIELD أو NetGuard Monitor أو الباقة المزدوجة — شهري أو سنوي</p>
+<p>اختر CYBER SHIELD، NetGuard Monitor، File Vault، Wi-Fi Inspector، USB Guardian — شهري أو سنوي</p>
 </div>
 <div class="step-card">
 <div class="step-num">2</div>
@@ -383,6 +428,48 @@ a{text-decoration:none;color:inherit}
 <a href="payment.html" class="btn btn-primary" style="width:100%;justify-content:center">اشترك الآن</a>
 </div>
 
+<div class="pricing-card">
+<div class="pricing-name">🔐 File Vault</div>
+<div class="pricing-sub">اشتراك شهري</div>
+<div class="pricing-price">100 <small>ج.م</small></div>
+<div class="pricing-period">شهرياً</div>
+<ul class="pricing-features">
+<li>تشفير AES-256-GCM</li>
+<li>فك التشفير</li>
+<li>حذف آمن</li>
+<li>خزنة تخزين مشفرة</li>
+</ul>
+<a href="payment.html" class="btn btn-primary" style="width:100%;justify-content:center">اشترك الآن</a>
+</div>
+
+<div class="pricing-card">
+<div class="pricing-name">📡 Wi-Fi Inspector</div>
+<div class="pricing-sub">اشتراك شهري</div>
+<div class="pricing-price">150 <small>ج.م</small></div>
+<div class="pricing-period">شهرياً</div>
+<ul class="pricing-features">
+<li>Wi-Fi Scanner</li>
+<li>كشف الأجهزة المتصلة</li>
+<li>Port Scanner</li>
+<li>تحليل القنوات</li>
+</ul>
+<a href="payment.html" class="btn btn-primary" style="width:100%;justify-content:center">اشترك الآن</a>
+</div>
+
+<div class="pricing-card">
+<div class="pricing-name">🛑 USB Guardian</div>
+<div class="pricing-sub">اشتراك شهري</div>
+<div class="pricing-price">100 <small>ج.م</small></div>
+<div class="pricing-period">شهرياً</div>
+<ul class="pricing-features">
+<li>كشف الفلاشات</li>
+<li>فحص التهديدات</li>
+<li>إخراج آمن</li>
+<li>سجل النشاط</li>
+</ul>
+<a href="payment.html" class="btn btn-primary" style="width:100%;justify-content:center">اشترك الآن</a>
+</div>
+
 </div>
 </div>
 
@@ -407,6 +494,22 @@ a{text-decoration:none;color:inherit}
 <p style="margin-top:10px">⏳ سيتم تفعيل الاشتراك فور تأكيد الدفع (خلال 30 دقيقة)</p>
 <div class="payment-note">لا توجد نسخة تجريبية — الاشتراك يبدأ فور تأكيد الدفع</div>
 <a id="sendReceiptBtn" href="https://wa.me/201093456565" class="btn btn-whatsapp" style="margin-top:20px;justify-content:center" target="_blank">أرسل الإيصال على واتساب</a>
+</div>
+</div>
+
+<div class="section reveal" id="new-tools" style="text-align:center">
+<div class="section-title">أدوات جديدة</div>
+<div class="section-desc">3 أدوات أمان إضافية مدمجة مع باقة ZELZAL — حمل الحزمة الكاملة الآن</div>
+<div style="background:#111122;border-radius:16px;padding:40px;border:1px solid #00f5a015;max-width:600px;margin:30px auto">
+<div style="font-size:48px;margin-bottom:15px">📦</div>
+<h3 style="font-size:20px;margin-bottom:10px">الحزمة الكاملة</h3>
+<p style="color:#889;font-size:14px;line-height:1.8;margin-bottom:20px">
+🔐 File Vault v1.0.0 — تشفير الملفات<br>
+📡 Wi-Fi Inspector v1.0.0 — فحص الشبكات<br>
+🛑 USB Guardian v1.0.0 — حماية USB
+</p>
+<p style="color:#667;font-size:13px;margin-bottom:20px">جميع الأدوات متضمنة في حزمة ZELZAL Products — تعمل على port 9092-9094</p>
+<a href="#payment" class="btn btn-primary">اشترك الآن</a>
 </div>
 </div>
 

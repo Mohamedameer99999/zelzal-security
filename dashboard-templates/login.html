@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZELZAL Dashboard - تسجيل دخول</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Tahoma,sans-serif;background:#0a0a15;color:#fff;display:flex;height:100vh;align-items:center;justify-content:center}
+.login-box{background:#111122;border:1px solid #ffffff0a;border-radius:16px;padding:40px;width:360px;text-align:center}
+.logo{font-size:28px;font-weight:800;background:linear-gradient(135deg,#00f5a0,#00d9f5);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:5px}
+.sub{color:#667;font-size:13px;margin-bottom:25px}
+input{width:100%;padding:12px;margin-bottom:12px;border-radius:8px;border:1px solid #ffffff0a;background:#0d0d1a;color:#fff;font-size:14px}
+input:focus{outline:none;border-color:#00f5a0}
+button{width:100%;padding:12px;background:linear-gradient(135deg,#00f5a0,#00d9f5);color:#0a0a15;border:none;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer}
+button:hover{box-shadow:0 4px 15px #00f5a033}
+.error{color:#ff5555;font-size:13px;margin-bottom:10px}
+</style>
+</head>
+<body>
+<div class="login-box">
+<div class="logo">ZELZAL</div>
+<div class="sub">لوحة إدارة العملاء والتراخيص</div>
+{% if error %}<div class="error">{{ error }}</div>{% endif %}
+<form method="POST">
+<input type="text" name="username" placeholder="اسم المستخدم" required>
+<input type="password" name="password" placeholder="كلمة المرور" required>
+<button type="submit">دخول</button>
+</form>
+</div>
+</body>
+</html>
