@@ -1,12 +1,17 @@
 {
-  "name": "ZELZAL SECURITY",
+  "name": "ZELZAL SECURITY - حلول الأمن السيبراني",
   "short_name": "ZELZAL",
-  "description": "حلول الأمن السيبراني والمراقبة",
+  "description": "منتجات أمن سيبراني متكاملة: CYBER SHIELD، NetGuard Monitor، File Vault، Wi-Fi Inspector، USB Guardian، System Cleaner، Duplicate Finder، File Shredder",
   "start_url": "/zelzal-security/",
   "display": "standalone",
   "background_color": "#0a0a15",
   "theme_color": "#0a0a15",
   "lang": "ar",
   "dir": "rtl",
-  "icons": []
+  "orientation": "portrait",
+  "categories": ["security", "utilities", "productivity"],
+  "icons": [
+    { "src": "icons/shield-192.svg", "sizes": "192x192", "type": "image/svg+xml", "purpose": "any maskable" },
+    { "src": "icons/shield-512.svg", "sizes": "512x512", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
 }

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>ZELZAL Security - المتجر</title>
+<meta name="theme-color" content="#0a0a15">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='80'>⚡</text></svg>">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root { --bg: #0a0a15; --card: #12122a; --green: #00f5a0; --cyan: #00d9f5; --text: #e0e0e0; --muted: #8888aa; }
+body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding-bottom: 80px; }
+header { padding: 20px; text-align: center; border-bottom: 1px solid rgba(0,245,160,0.1); }
+header h1 { font-size: 22px; background: linear-gradient(135deg, var(--green), var(--cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+header p { color: var(--muted); font-size: 13px; margin-top: 4px; }
+.category { padding: 16px 16px 8px; font-size: 13px; color: var(--cyan); font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
+.product { background: var(--card); margin: 8px 16px; padding: 14px; border-radius: 12px; border: 1px solid rgba(0,245,160,0.08); display: flex; align-items: center; gap: 12px; }
+.product-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+.product-info { flex: 1; }
+.product-name { font-size: 14px; font-weight: bold; }
+.product-desc { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.product-pricing { display: flex; gap: 8px; margin-top: 6px; }
+.price-tag { background: rgba(0,245,160,0.1); padding: 2px 10px; border-radius: 12px; font-size: 11px; color: var(--green); border: 1px solid rgba(0,245,160,0.2); }
+.price-tag s { color: var(--muted); opacity: 0.6; }
+.payment-section { margin: 20px 16px; padding: 16px; background: var(--card); border-radius: 12px; border: 1px solid rgba(0,245,160,0.08); text-align: center; }
+.payment-section h3 { font-size: 14px; color: var(--green); margin-bottom: 8px; }
+.payment-section .phone { font-size: 20px; font-weight: bold; color: #fff; letter-spacing: 1px; }
+.payment-section .note { font-size: 12px; color: var(--muted); margin-top: 6px; }
+.btn { display: block; margin: 8px 16px; padding: 14px; text-align: center; border-radius: 12px; font-size: 15px; font-weight: bold; text-decoration: none; border: none; cursor: pointer; }
+.btn-primary { background: linear-gradient(135deg, var(--green), var(--cyan)); color: #0a0a15; }
+.btn-outline { background: transparent; border: 2px solid var(--green); color: var(--green); }
+.faq { margin: 16px; }
+.faq summary { padding: 12px; background: var(--card); border-radius: 10px; cursor: pointer; font-size: 13px; color: var(--cyan); margin-bottom: 4px; }
+.faq p { padding: 8px 12px; font-size: 12px; color: var(--muted); line-height: 1.6; }
+footer { text-align: center; padding: 20px; color: var(--muted); font-size: 11px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>⚡ ZELZAL SECURITY</h1>
+  <p>المتجر الرسمي — اشترِ وحمِّل فوراً</p>
+</header>
+
+<div class="category">🛡️ الحماية والمراقبة</div>
+
+<div class="product">
+  <div class="product-icon" style="background:rgba(0,245,160,0.15)">🛡️</div>
+  <div class="product-info">
+    <div class="product-name">CYBER SHIELD v5.0.0</div>
+    <div class="product-desc">حماية متكاملة: فحص ثغرات، جدار ناري، مكافحة فيروسات، مراقبة شبكة</div>
+    <div class="product-pricing">
+      <span class="price-tag">شهري 200 ج</span>
+      <span class="price-tag">سنوي 1500 ج <s>2400</s></span>
+    </div>
+  </div>
+</div>
+
+<div class="product">
+  <div class="product-icon" style="background:rgba(0,217,245,0.15)">📡</div>
+  <div class="product-info">
+    <div class="product-name">NetGuard Monitor v1.2.0</div>
+    <div class="product-desc">مراقبة الأجهزة المتصلة بالشبكة وال带宽</div>
+    <div class="product-pricing">
+      <span class="price-tag">شهري 150 ج</span>
+      <span class="price-tag">سنوي 1000 ج <s>1800</s></span>
+    </div>
+  </div>
+</div>
+
+<div class="product">
+  <div class="product-icon" style="background:rgba(0,245,160,0.15)">🔐</div>
+  <div class="product-info">
+    <div class="product-name">File Vault v1.0.0</div>
+    <div class="product-desc">تشفير الملفات والمجلدات وحذف آمن</div>
+    <div class="product-pricing">
+      <span class="price-tag">شهري 100 ج</span>
+      <span class="price-tag">سنوي 700 ج <s>1200</s></span>
+    </div>
+  </div>
+</div>
+
+<div class="product">
+  <div class="product-icon" style="background:rgba(0,217,245,0.15)">📶</div>
+  <div class="product-info">
+    <div class="product-name">Wi-Fi Inspector v1.0.0</div>
+    <div class="product-desc">فحص شبكات الواي فاي وكشف المتطفلين</div>
+    <div class="product-pricing">
+      <span class="price-tag">شهري 100 ج</span>
+      <span class="price-tag">سنوي 700 ج <s>1200</s></span>
+    </div>
+  </div>
+</div>
+
+<div class="product">
+  <div class="product-icon" style="background:rgba(0,245,160,0.15)">🔌</div>
+  <div class="product-info">
+    <div class="product-name">USB Guardian v1.0.0</div>
+    <div class="product-desc">التحكم بمنافذ USB ومنع الاختراق عبر الفلاشة</div>
+    <div class="product-pricing">
+      <span class="price-tag">شهري 100 ج</span>
+      <span class="price-tag">سنوي 700 ج <s>1200</s></span>
+    </div>
+  </div>
+</div>
+
+<div class="category">🧹 أدوات الصيانة</div>
+
+<div class="product">
+  <div class="product-icon" style="background:rgba(0,245,160,0.15)">🧹</div>
+  <div class="product-info">
+    <div class="product-name">System Cleaner v1.0.0</div>
+    <div class="product-desc">تنظيف الملفات المؤقتة وال cache و DNS</div>
+    <div class="product-pricing"><span class="price-tag">100 ج</span></div>
+  </div>
+</div>
+
+<div class="product">
+  <div class="product-icon" style="background:rgba(0,217,245,0.15)">📂</div>
+  <div class="product-info">
+    <div class="product-name">Duplicate Finder v1.0.0</div>
+    <div class="product-desc">كشف وحذف الملفات المكررة</div>
+    <div class="product-pricing"><span class="price-tag">100 ج</span></div>
+  </div>
+</div>
+
+<div class="product">
+  <div class="product-icon" style="background:rgba(0,245,160,0.15)">🗑️</div>
+  <div class="product-info">
+    <div class="product-name">File Shredder v1.0.0</div>
+    <div class="product-desc">تمزيق آمن للملفات (DoD المعيار)</div>
+    <div class="product-pricing"><span class="price-tag">100 ج</span></div>
+  </div>
+</div>
+
+<div class="payment-section">
+  <h3>💳 طريقة الدفع</h3>
+  <div class="phone">01093456565</div>
+  <div class="note">فودافون كاش — حول المبلغ وأرسل الإيصال على واتساب</div>
+</div>
+
+<a href="https://wa.me/201093456565" class="btn btn-primary">💬 أرسل الإيصال على واتساب</a>
+<a href="https://mohamedameer99999.github.io/zelzal-security/" class="btn btn-outline">🔗 الموقع الرسمي</a>
+
+<div class="faq">
+  <details>
+    <summary>❓ كيف أشتري؟</summary>
+    <p>1. حول المبلغ على 01093456565 فودافون كاش<br>2. صور الإيصال<br>3. أرسله على واتساب 01093456565<br>4. هنبعتلك رابط التحميل والمفتاح فوراً</p>
+  </details>
+  <details>
+    <summary>❓ إيه المدة؟</summary>
+    <p>الباقات الشهرية تجدد تلقائياً كل 30 يوم. الباقات السنوية 12 شهر. أدوات الصيانة شراء مرة واحدة.</p>
+  </details>
+  <details>
+    <summary>❓ في دعم فني؟</summary>
+    <p>أي استفسار أو مشكلة تواصل معانا على واتساب 01093456565 أو تيليجرام.</p>
+  </details>
+</div>
+
+<footer>© 2026 ZELZAL SECURITY — جميع الحقوق محفوظة</footer>
+</body>
+</html>

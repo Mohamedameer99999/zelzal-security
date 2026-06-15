@@ -728,5 +728,27 @@ el.classList.toggle('open');
 }
 </script>
 
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/zelzal-security/service-worker.js');
+  });
+}
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  deferredPrompt = e;
+  const btn = document.getElementById('install-btn') || (() => {
+    const b = document.createElement('button');
+    b.id = 'install-btn';
+    b.textContent = '📲 تثبيت التطبيق';
+    b.style.cssText = 'position:fixed;bottom:20px;right:20px;z-index:9999;background:#00f5a0;color:#0a0a15;border:none;padding:12px 24px;border-radius:30px;font-size:16px;font-weight:bold;cursor:pointer;box-shadow:0 4px 20px rgba(0,245,160,0.4);animation:fadeInUp 0.5s';
+    b.onclick = () => { deferredPrompt.prompt(); deferredPrompt.userChoice.then(() => { deferredPrompt = null; b.remove(); }); };
+    document.body.appendChild(b);
+    return b;
+  })();
+});
+</script>
+
 </body>
 </html>
