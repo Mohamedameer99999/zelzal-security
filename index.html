@@ -364,8 +364,12 @@ a{text-decoration:none;color:inherit}
 <div class="section-desc">نظامنا ينمو يومًا بعد يوم</div>
 <div class="stats-grid">
 <div class="stat-card">
-<div class="stat-num">+500</div>
-<div class="stat-label">تهديد تم كشفه</div>
+<div class="stat-num" id="statUsers">+500</div>
+<div class="stat-label">مستخدم مسجل</div>
+</div>
+<div class="stat-card">
+<div class="stat-num" id="statLicenses">—</div>
+<div class="stat-label">ترخيص نشط</div>
 </div>
 <div class="stat-card">
 <div class="stat-num">24/7</div>
@@ -374,10 +378,6 @@ a{text-decoration:none;color:inherit}
 <div class="stat-card">
 <div class="stat-num">99%</div>
 <div class="stat-label">نسبة كشف</div>
-</div>
-<div class="stat-card">
-<div class="stat-num">7</div>
-<div class="stat-label">دول مدعومة</div>
 </div>
 </div>
 </div>
@@ -729,6 +729,103 @@ el.classList.toggle('open');
 }
 </script>
 
+<script>
+// ── Live Stats + Chat API Config ──
+const ZELZAL_API_URLS = window.ZELZAL_API ? [window.ZELZAL_API] : ['https://c55ec610550444ad-105-196-76-120.serveousercontent.com', 'http://localhost:3456'];
+let ZELZAL_API_ACTIVE = ZELZAL_API_URLS[0];
+
+(async function() {
+  for (const url of ZELZAL_API_URLS) {
+    try {
+      const r = await fetch(url + '/api/ping', { signal: AbortSignal.timeout(2000) });
+      if (r.ok) { ZELZAL_API_ACTIVE = url; break; }
+    } catch {}
+  }
+  try {
+    const r = await fetch(ZELZAL_API_ACTIVE + '/api/public-stats', { signal: AbortSignal.timeout(3000) });
+    const d = await r.json();
+    if (d.users) animateStat('statUsers', d.users);
+    if (d.activeLicenses >= 0) document.getElementById('statLicenses').textContent = d.activeLicenses;
+  } catch {}
+  function animateStat(id, target) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const current = parseInt(el.textContent.replace(/[+\-,]/g, '')) || 0;
+    if (current === target) return;
+    const step = Math.max(1, Math.ceil((target - current) / 20));
+    let val = current;
+    const i = setInterval(() => {
+      val += step; if (val >= target) { val = target; clearInterval(i); }
+      el.textContent = val;
+    }, 40);
+  }
+})();
+
+// ── Chat Widget ──
+(function() {
+  const existing = document.getElementById('zelzalChatBtn');
+  if (existing) return;
+
+  const btn = document.createElement('div');
+  btn.id = 'zelzalChatBtn';
+  btn.innerHTML = '💬';
+  btn.style.cssText = 'position:fixed;bottom:20px;left:20px;z-index:9999;width:56px;height:56px;background:linear-gradient(135deg,#00f5a0,#00d9f5);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px;cursor:pointer;box-shadow:0 4px 20px rgba(0,245,160,0.4);transition:transform .3s;border:none';
+  btn.onmouseenter = () => btn.style.transform = 'scale(1.1)';
+  btn.onmouseleave = () => btn.style.transform = 'scale(1)';
+
+  const modal = document.createElement('div');
+  modal.id = 'zelzalChatModal';
+  modal.style.cssText = 'position:fixed;bottom:90px;left:20px;z-index:9998;width:340px;background:#111122;border-radius:16px;border:1px solid #00f5a033;box-shadow:0 10px 40px rgba(0,0,0,0.5);display:none;overflow:hidden;max-height:480px';
+
+  modal.innerHTML =
+    '<div style="background:linear-gradient(135deg,#00f5a0,#00d9f5);padding:16px;color:#0a0a15;font-weight:700;font-size:16px;display:flex;justify-content:space-between;align-items:center">💬 تواصل معنا<span id="zelzalChatClose" style="cursor:pointer;font-size:20px;opacity:0.7">✕</span></div>' +
+    '<div style="padding:16px">' +
+    '<div style="margin-bottom:12px"><a href="https://wa.me/201034085168" target="_blank" style="display:flex;align-items:center;gap:10px;background:#25D36615;padding:10px 14px;border-radius:10px;color:#fff;text-decoration:none;border:1px solid #25D36633;font-size:14px">💬 <span>واتساب — رد سريع</span></a></div>' +
+    '<div style="margin-bottom:12px"><a href="https://t.me/ZELZAL_Security" target="_blank" style="display:flex;align-items:center;gap:10px;background:#0088cc15;padding:10px 14px;border-radius:10px;color:#fff;text-decoration:none;border:1px solid #0088cc33;font-size:14px">✈️ <span>تيليجرام — قناة الأخبار</span></a></div>' +
+    '<div style="border-top:1px solid #ffffff0a;padding-top:14px;margin-top:4px">' +
+    '<div style="font-size:13px;color:#889;margin-bottom:10px">أو أرسل رسالة وسنرد عليك:</div>' +
+    '<input id="chatName" placeholder="الاسم" style="width:100%;padding:10px 12px;background:#0a0a15;border:1px solid #ffffff15;border-radius:8px;color:#fff;font-size:14px;margin-bottom:8px;box-sizing:border-box">' +
+    '<input id="chatPhone" placeholder="رقم الهاتف (اختياري)" style="width:100%;padding:10px 12px;background:#0a0a15;border:1px solid #ffffff15;border-radius:8px;color:#fff;font-size:14px;margin-bottom:8px;box-sizing:border-box">' +
+    '<textarea id="chatMsg" placeholder="رسالتك..." style="width:100%;padding:10px 12px;background:#0a0a15;border:1px solid #ffffff15;border-radius:8px;color:#fff;font-size:14px;margin-bottom:10px;resize:none;height:72px;box-sizing:border-box;font-family:inherit"></textarea>' +
+    '<input type="text" id="chatHoneypot" style="position:absolute;left:-9999px;top:-9999px" tabindex="-1" autocomplete="off">' +
+    '<div id="chatStatus" style="font-size:12px;margin-bottom:8px;display:none"></div>' +
+    '<button id="chatSendBtn" style="width:100%;padding:10px;background:linear-gradient(135deg,#00f5a0,#00d9f5);color:#0a0a15;border:none;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer">إرسال</button>' +
+    '</div></div>';
+
+  document.body.appendChild(btn);
+  document.body.appendChild(modal);
+
+  let open = false;
+  btn.onclick = () => { open = !open; modal.style.display = open ? 'block' : 'none'; };
+  document.getElementById('zelzalChatClose').onclick = () => { open = false; modal.style.display = 'none'; };
+
+  document.getElementById('chatSendBtn').onclick = async () => {
+    const name = document.getElementById('chatName').value.trim();
+    const msg = document.getElementById('chatMsg').value.trim();
+    const honeypot = document.getElementById('chatHoneypot').value;
+    const status = document.getElementById('chatStatus');
+    if (!name) { status.textContent = '❌ الرجاء إدخال الاسم'; status.style.display = 'block'; status.style.color = '#ff4444'; return; }
+    if (!msg) { status.textContent = '❌ الرجاء إدخال الرسالة'; status.style.display = 'block'; status.style.color = '#ff4444'; return; }
+    status.textContent = '⏳ جاري الإرسال...'; status.style.display = 'block'; status.style.color = '#889';
+    try {
+      const r = await fetch(ZELZAL_API_ACTIVE + '/api/contact', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, phone: document.getElementById('chatPhone').value.trim(), message: msg, _honeypot: honeypot })
+      });
+      const d = await r.json();
+      if (d.success) {
+        status.textContent = '✅ تم إرسال رسالتك — سنرد عليك قريباً';
+        status.style.color = '#00f5a0';
+        document.getElementById('chatMsg').value = '';
+        setTimeout(() => { status.style.display = 'none'; }, 5000);
+      } else { throw new Error(d.error); }
+    } catch {
+      status.textContent = '❌ تعذر الإرسال — تواصل معنا عبر واتساب';
+      status.style.color = '#ffaa00';
+    }
+  };
+})();
+</script>
 <script>
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
