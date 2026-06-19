@@ -1,7 +1,7 @@
 {
   "name": "ZELZAL SECURITY - حلول الأمن السيبراني",
   "short_name": "ZELZAL",
-  "description": "منتجات أمن سيبراني متكاملة: CYBER SHIELD، NetGuard Monitor، File Vault، Wi-Fi Inspector، USB Guardian، System Cleaner، Duplicate Finder، File Shredder",
+  "description": "منتجات أمن سيبراني متكاملة: ZELZAL PRO، Pentest Suite، VPN Secure، Network Defender، Anti-Ransomware، Exam Scanner، Android Analyzer، OSINT Pro",
   "start_url": "/zelzal-security/",
   "display": "standalone",
   "background_color": "#0a0a15",

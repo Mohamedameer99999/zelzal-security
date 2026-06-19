@@ -1,7 +1,0 @@
-{
-  "port": 9090,
-  "admin_user": "admin",
-  "admin_password": "",
-  "scan_interval": 60,
-  "interface": "0.0.0.0"
-}

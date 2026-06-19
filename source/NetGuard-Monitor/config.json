@@ -1,9 +1,0 @@
-{
-  "port": 9091,
-  "scan_interval": 30,
-  "subnet": "192.168.1.0/24",
-  "admin_user": "admin",
-  "admin_password": "",
-  "notify_whatsapp": false,
-  "whatsapp_webhook": ""
-}
