@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}{{ _('Purchase Products') }} - {{ _('ZELZAL Security') }}{% endblock %}
+{% block content %}
+<div class="container py-5">
+    <div class="text-center mb-5">
+        <h1 class="display-4 fw-bold"><i class="bi bi-shield-lock"></i> {{ _('ZELZAL Security Products') }}</h1>
+        <p class="lead text-muted">{{ _('Choose the perfect security solution for your needs') }}</p>
+    </div>
+
+    <div class="row g-4">
+        {% for product in products %}
+        <div class="col-md-6 col-lg-4 col-xl-3">
+            <div class="card h-100 border-0 shadow-sm hover-shadow transition">
+                <div class="card-body d-flex flex-column">
+                    <div class="mb-3">
+                        <span class="badge bg-primary">{{ product.name }}</span>
+                    </div>
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p class="card-text text-muted small">{{ product.desc }}</p>
+                    
+                    <div class="mt-auto pt-3 border-top">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="text-muted">{{ _('Monthly') }}</span>
+                            <span class="fw-bold">{{ product.monthly }}</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-3">
+                            <span class="text-muted">{{ _('Yearly') }} <span class="badge bg-success">{{ _('Save 20 percent') }}</span></span>
+                            <span class="fw-bold text-success">{{ product.yearly }}</span>
+                        </div>
+                        
+                        <form method="POST" action="{{ url_for('buy') }}">
+                            <input type="hidden" name="product_id" value="{{ product.id }}">
+                            <button type="submit" class="btn btn-primary w-100">
+                                <i class="bi bi-cart-plus"></i> {{ _('Buy Now') }}
+                            </button>
+                        </form>
+                        
+                        <a href="{{ url_for('buy') }}?product={{ product.id }}" class="btn btn-outline-secondary w-100 mt-2">
+                            <i class="bi bi-info-circle"></i> {{ _('Details') }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    {% if not products %}
+    <div class="text-center py-5">
+        <i class="bi bi-box-seam" style="font-size: 4rem; color: #ccc;"></i>
+        <h3 class="mt-3 text-muted">{{ _('No products available') }}</h3>
+        <p class="text-muted">{{ _('Please contact administrator') }}</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
