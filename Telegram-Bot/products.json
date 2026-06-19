@@ -1,0 +1,74 @@
+[
+  {
+    "id": "zelzal-pro",
+    "name": "🛡️ ZELZAL PRO v3.0",
+    "desc": "حزمة حماية متكاملة: جدار ناري،Anti-Virus، كشف اقتحام، VPN مدمج، تصيد، تشفير",
+    "monthly": "300 ج",
+    "yearly": "2500 ج",
+    "prefix": "ZELZALPRO",
+    "type": "main"
+  },
+  {
+    "id": "pentest-suite",
+    "name": "💥 Pentest Suite v2.1",
+    "desc": "مجموعة أدوات اختبار اختراق: Nmap, Metasploit, Wireshark, Burp Suite, SQLMap",
+    "monthly": "400 ج",
+    "yearly": "3500 ج",
+    "prefix": "PENTEST",
+    "type": "main"
+  },
+  {
+    "id": "vpn-secure",
+    "name": "🔒 VPN Secure v1.5",
+    "desc": "VPN مشفر بالكامل، إخفاء الهوية،跨越 الجغرافي، Kill Switch، 5 بروتوكولات",
+    "monthly": "150 ج",
+    "yearly": "1200 ج",
+    "prefix": "VPNSECURE",
+    "type": "main"
+  },
+  {
+    "id": "network-defender",
+    "name": "📡 Network Defender v2.0",
+    "desc": "مراقبة الشبكة، كشف المتطفلين، تحليل الحزم، IDS/IPS، إنذار فوري",
+    "monthly": "250 ج",
+    "yearly": "2000 ج",
+    "prefix": "NETDEFENDER",
+    "type": "main"
+  },
+  {
+    "id": "anti-ransomware",
+    "name": "🔐 Anti-Ransomware v1.0",
+    "desc": "حماية من هجمات الفدية، كشف السلوك الشاذ، نسخ احتياطي ذكي، استعادة الملفات",
+    "monthly": "200 ج",
+    "yearly": "1500 ج",
+    "prefix": "ANTIRANSOM",
+    "type": "main"
+  },
+  {
+    "id": "exam-scanner",
+    "name": "📸 Exam Scanner v2.0",
+    "desc": "مسح بايثون لأنظمة اللجان الإلكترونية المختلفة (بالتحديث المستمر)",
+    "monthly": "500 ج",
+    "yearly": "4000 ج",
+    "prefix": "EXAMSCAN",
+    "type": "main"
+  },
+  {
+    "id": "android-analyzer",
+    "name": "📱 Android Analyzer v1.2",
+    "desc": "تحليل تطبيقات أندرويد، فحص ثغرات، هندسة عكسية، فك تشفير",
+    "monthly": "350 ج",
+    "yearly": "3000 ج",
+    "prefix": "ANDROIDAN",
+    "type": "main"
+  },
+  {
+    "id": "osint-pro",
+    "name": "🌐 OSINT Pro v1.0",
+    "desc": "استخبارات المصادر المفتوحة: تتبع، تحليل مواقع، بحث في القواعد البيانات، سوشيال ميديا",
+    "monthly": "250 ج",
+    "yearly": "2000 ج",
+    "prefix": "OSINTPRO",
+    "type": "main"
+  }
+]

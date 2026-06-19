@@ -2,9 +2,16 @@ venv/
 __pycache__/
 *.py[cod]
 *.db
+*.db-shm
+*.db-wal
 instance/*.db
 instance/logs/
 .env
 *.iso
 *.log
 .Python
+.tmp.driveupload/
+Customer-Dashboard/dist/
+CYBER-SHIELD/
+node_modules/
+Telegram-Bot/node_modules/
