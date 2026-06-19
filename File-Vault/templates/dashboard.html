@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ tool_name }} - ZELZAL SECURITY</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Tahoma,sans-serif;background:#0a0a15;color:#fff;min-height:100vh}
+.header{background:#0d0d1a;padding:15px 30px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid {{ tool_color }}33}
+.logo{display:flex;align-items:center;gap:10px}
+.logo-icon{width:36px;height:36px;background:linear-gradient(135deg,{{ tool_color }},{{ tool_color }}88);border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:900;color:#0a0a15}
+.logo-text{font-size:18px;font-weight:700;color:{{ tool_color }}}
+.status{display:flex;align-items:center;gap:8px;font-size:13px;color:#888}
+.status-dot{width:8px;height:8px;border-radius:50%;background:#00f5a0;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.container{max-width:1000px;margin:30px auto;padding:0 20px}
+h2{font-size:24px;margin-bottom:20px;color:{{ tool_color }}}
+.card{background:linear-gradient(135deg,#0d0d1a,#1a1a2e);border-radius:16px;padding:25px;margin-bottom:20px;border:1px solid #ffffff0a}
+.card h3{font-size:16px;color:#888;margin-bottom:15px}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:15px;margin-bottom:25px}
+.stat{background:linear-gradient(135deg,#0d0d1a,#1a1a2e);border-radius:12px;padding:20px;text-align:center;border:1px solid #ffffff0a}
+.stat-value{font-size:28px;font-weight:700;color:{{ tool_color }}}
+.stat-label{font-size:13px;color:#888;margin-top:5px}
+.btn{padding:10px 24px;border:none;border-radius:10px;background:linear-gradient(135deg,{{ tool_color }},{{ tool_color }}88);color:#0a0a15;font-size:14px;font-weight:600;cursor:pointer;transition:.3s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 8px 25px {{ tool_color }}44}
+.btn-outline{padding:8px 18px;border:1px solid {{ tool_color }}44;border-radius:10px;background:transparent;color:{{ tool_color }};font-size:13px;cursor:pointer;transition:.3s}
+.btn-outline:hover{background:{{ tool_color }}11}
+.dropzone{border:2px dashed {{ tool_color }}44;border-radius:16px;padding:50px;text-align:center;margin-bottom:20px;transition:.3s;cursor:pointer}
+.dropzone:hover{border-color:{{ tool_color }};background:{{ tool_color }}08}
+.dropzone-icon{font-size:48px;color:{{ tool_color }};margin-bottom:10px}
+.dropzone-text{color:#888;font-size:14px}
+.file-list{list-style:none}
+.file-list li{display:flex;justify-content:space-between;align-items:center;padding:12px 15px;border-bottom:1px solid #ffffff0a}
+.file-list li:last-child{border-bottom:none}
+.file-name{display:flex;align-items:center;gap:10px}
+.file-status{padding:4px 10px;border-radius:20px;font-size:12px}
+.file-encrypted{background:#00f5a033;color:#00f5a0}
+.file-pending{background:#ffd93d33;color:#ffd93d}
+</style>
+</head>
+<body>
+<div class="header">
+<div class="logo">
+<div class="logo-icon">Z</div>
+<span class="logo-text">{{ tool_name }}</span>
+</div>
+<div class="status"><span class="status-dot"></span>نشط — مرخص</div>
+</div>
+<div class="container">
+<h2>خزنة الملفات المشفرة</h2>
+<div class="stats-grid">
+<div class="stat"><div class="stat-value">12</div><div class="stat-label">الملفات المشفرة</div></div>
+<div class="stat"><div class="stat-value">156MB</div><div class="stat-label">المساحة المستخدمة</div></div>
+<div class="stat"><div class="stat-value">AES-256</div><div class="stat-label">نوع التشفير</div></div>
+<div class="stat"><div class="stat-value">آمن</div><div class="stat-label">الحالة</div></div>
+</div>
+<div class="card">
+<h3>🔐 رفع ملف للتشفير</h3>
+<div class="dropzone" id="dropZone">
+<div class="dropzone-icon">📁</div>
+<div class="dropzone-text">اسحب وأفلت الملفات هنا أو اضغط للاختيار</div>
+</div>
+<div style="display:flex;gap:10px;margin-top:15px">
+<button class="btn" onclick="encryptAll()">🔒 تشفير الكل</button>
+<button class="btn-outline" onclick="decryptAll()">🔓 فك التشفير</button>
+</div>
+</div>
+<div class="card">
+<h3>📋 الملفات المخزنة</h3>
+<ul class="file-list">
+<li><span class="file-name">📄 document.docx</span><span class="file-status file-encrypted">مشفر ✓</span></li>
+<li><span class="file-name">📸 photo.jpg</span><span class="file-status file-encrypted">مشفر ✓</span></li>
+<li><span class="file-name">💼 backup.zip</span><span class="file-status file-pending">قيد الانتظار</span></li>
+<li><span class="file-name">📊 report.pdf</span><span class="file-status file-encrypted">مشفر ✓</span></li>
+</ul>
+</div>
+</div>
+<script>
+document.getElementById('dropZone').addEventListener('click', () => alert('اختر ملفات من جهازك لتشفيرها'));
+async function encryptAll() {
+const btn = event.target; btn.disabled = true; btn.textContent = '⏳ جاري التشفير...';
+try { const r = await fetch('/api/encrypt', {method:'POST'}); const d = await r.json(); alert('✅ تم تشفير الملفات بنجاح'); } catch(e) { alert('❌ فشل التشفير'); }
+btn.disabled = false; btn.textContent = '🔒 تشفير الكل';
+}
+async function decryptAll() {
+const btn = event.target; btn.disabled = true; btn.textContent = '⏳ جاري فك التشفير...';
+try { const r = await fetch('/api/decrypt', {method:'POST'}); const d = await r.json(); alert('✅ تم فك تشفير الملفات'); } catch(e) { alert('❌ فشل فك التشفير'); }
+btn.disabled = false; btn.textContent = '🔓 فك التشفير';
+}
+</script>
+</body>
+</html>

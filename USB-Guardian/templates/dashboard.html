@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ tool_name }} - ZELZAL SECURITY</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Tahoma,sans-serif;background:#0a0a15;color:#fff;min-height:100vh}
+.header{background:#0d0d1a;padding:15px 30px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid {{ tool_color }}33}
+.logo{display:flex;align-items:center;gap:10px}
+.logo-icon{width:36px;height:36px;background:linear-gradient(135deg,{{ tool_color }},{{ tool_color }}88);border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:900;color:#0a0a15}
+.logo-text{font-size:18px;font-weight:700;color:{{ tool_color }}}
+.status{display:flex;align-items:center;gap:8px;font-size:13px;color:#888}
+.status-dot{width:8px;height:8px;border-radius:50%;background:#00f5a0;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.container{max-width:1000px;margin:30px auto;padding:0 20px}
+h2{font-size:24px;margin-bottom:20px;color:{{ tool_color }}}
+.card{background:linear-gradient(135deg,#0d0d1a,#1a1a2e);border-radius:16px;padding:25px;margin-bottom:20px;border:1px solid #ffffff0a}
+.card h3{font-size:16px;color:#888;margin-bottom:15px}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:15px;margin-bottom:25px}
+.stat{background:linear-gradient(135deg,#0d0d1a,#1a1a2e);border-radius:12px;padding:20px;text-align:center;border:1px solid #ffffff0a}
+.stat-value{font-size:28px;font-weight:700;color:{{ tool_color }}}
+.stat-label{font-size:13px;color:#888;margin-top:5px}
+.btn{padding:10px 24px;border:none;border-radius:10px;background:linear-gradient(135deg,{{ tool_color }},{{ tool_color }}88);color:#0a0a15;font-size:14px;font-weight:600;cursor:pointer;transition:.3s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 8px 25px {{ tool_color }}44}
+.btn-outline{padding:8px 18px;border:1px solid {{ tool_color }}44;border-radius:10px;background:transparent;color:{{ tool_color }};font-size:13px;cursor:pointer;transition:.3s}
+.btn-outline:hover{background:{{ tool_color }}11}
+.badge{padding:4px 10px;border-radius:20px;font-size:12px}
+.badge-safe{background:#00f5a033;color:#00f5a0}
+.badge-warn{background:#ffd93d33;color:#ffd93d}
+.badge-danger{background:#ff6b6b33;color:#ff6b6b}
+table{width:100%;border-collapse:collapse;margin-top:10px}
+th{padding:12px 10px;text-align:right;font-size:13px;color:#888;border-bottom:1px solid #ffffff0a}
+td{padding:12px 10px;font-size:14px;border-bottom:1px solid #ffffff0a}
+.alert-bar{background:#ff6b6b22;border:1px solid #ff6b6b44;border-radius:10px;padding:15px;margin-bottom:15px;display:flex;align-items:center;gap:10px;color:#ff6b6b}
+</style>
+</head>
+<body>
+<div class="header">
+<div class="logo">
+<div class="logo-icon">Z</div>
+<span class="logo-text">{{ tool_name }}</span>
+</div>
+<div class="status"><span class="status-dot"></span>نشط — مرخص</div>
+</div>
+<div class="container">
+<h2>حارس أجهزة USB</h2>
+<div class="alert-bar">⚠️ تم حظر جهاز USB غير موثوق: Kingston DataTraveler 32GB</div>
+<div class="stats-grid">
+<div class="stat"><div class="stat-value">6</div><div class="stat-label">أجهزة موثوقة</div></div>
+<div class="stat"><div class="stat-value">3</div><div class="stat-label">محاولات محظورة</div></div>
+<div class="stat"><div class="stat-value">2</div><div class="stat-label">أجهزة متصلة حالياً</div></div>
+<div class="stat"><div class="stat-value">نشط</div><div class="stat-label">الحماية</div></div>
+</div>
+<div class="card">
+<h3>📡 الأجهزة المتصلة</h3>
+<table>
+<thead><tr><th>الجهاز</th><th>الشركة</th><th>السعة</th><th>الحالة</th><th>الخطر</th></tr></thead>
+<tbody>
+<tr><td>Ultra Fit</td><td>SanDisk</td><td>64GB</td><td><span class="badge badge-safe">موثوق</span></td><td>منخفض</td></tr>
+<tr><td>DataTraveler</td><td>Kingston</td><td>32GB</td><td><span class="badge badge-danger">محظور</span></td><td>عالي</td></tr>
+</tbody>
+</table>
+</div>
+<div class="card">
+<h3>⚙️ إعدادات الحماية</h3>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px">
+<button class="btn-outline" onclick="scanUSB()">🔍 فحص USB</button>
+<button class="btn-outline">✅ إضافة جهاز موثوق</button>
+<button class="btn-outline">📋 سجل الأحداث</button>
+</div>
+</div>
+</div>
+<script>
+async function scanUSB() {
+const btn = event.target; btn.disabled = true; btn.textContent = '⏳ جاري الفحص...';
+try { const r = await fetch('/api/scan-usb'); const d = await r.json(); alert(`✅ تم العثور على ${d.count} أجهزة USB`); } catch(e) { alert('❌ فشل الفحص'); }
+btn.disabled = false; btn.textContent = '🔍 فحص USB';
+}
+</script>
+</body>
+</html>

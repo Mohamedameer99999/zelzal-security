@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ tool_name }} - ZELZAL SECURITY</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Tahoma,sans-serif;background:#0a0a15;color:#fff;min-height:100vh;display:flex;align-items:center;justify-content:center}
+.container{max-width:480px;width:90%;padding:40px;background:linear-gradient(135deg,#0d0d1a,#1a1a2e);border-radius:20px;border:1px solid {{ tool_color }}33;text-align:center}
+.logo{width:70px;height:70px;background:linear-gradient(135deg,{{ tool_color }},{{ tool_color }}88);border-radius:16px;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:28px;font-weight:900;color:#0a0a15}
+h1{font-size:22px;margin-bottom:5px;background:linear-gradient(135deg,{{ tool_color }},#fff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.tag{color:#888;font-size:13px;margin-bottom:25px}
+.input-group{display:flex;flex-direction:column;gap:12px;margin-bottom:20px}
+.input-group input{padding:14px 18px;border:1px solid {{ tool_color }}44;border-radius:12px;background:#0a0a15;color:#fff;font-size:16px;text-align:center;direction:ltr;outline:none;transition:.3s}
+.input-group input:focus{border-color:{{ tool_color }};box-shadow:0 0 20px {{ tool_color }}22}
+.input-group button{padding:14px;border:none;border-radius:12px;background:linear-gradient(135deg,{{ tool_color }},{{ tool_color }}88);color:#0a0a15;font-size:16px;font-weight:700;cursor:pointer;transition:.3s}
+.input-group button:hover{transform:translateY(-2px);box-shadow:0 8px 25px {{ tool_color }}44}
+.error{color:#ff6b6b;font-size:13px;margin-bottom:15px;padding:10px;background:#ff6b6b11;border-radius:8px;border:1px solid #ff6b6b33}
+.info{color:#888;font-size:12px;line-height:1.6;margin-top:20px}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="logo">Z</div>
+<h1>{{ tool_name }}</h1>
+<p class="tag">{{ tool_tag }}</p>
+{% if error %}<div class="error">{{ error }}</div>{% endif %}
+<form method="POST">
+<div class="input-group">
+<input type="text" name="license_key" placeholder="XXXX-XXXX-XXXX-XXXX" maxlength="19" autocomplete="off" required>
+<button type="submit">تفعيل الترخيص</button>
+</div>
+</form>
+<div class="info">أدخل مفتاح الترخيص لتفعيل الأداة<br>مثال: SC12-3456-7890-ABCD</div>
+</div>
+</body>
+</html>

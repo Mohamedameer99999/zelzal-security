@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ tool_name }} - ZELZAL SECURITY</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Tahoma,sans-serif;background:#0a0a15;color:#fff;min-height:100vh}
+.header{background:#0d0d1a;padding:15px 30px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid {{ tool_color }}33}
+.logo{display:flex;align-items:center;gap:10px}
+.logo-icon{width:36px;height:36px;background:linear-gradient(135deg,{{ tool_color }},{{ tool_color }}88);border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:900;color:#0a0a15}
+.logo-text{font-size:18px;font-weight:700;color:{{ tool_color }}}
+.status{display:flex;align-items:center;gap:8px;font-size:13px;color:#888}
+.status-dot{width:8px;height:8px;border-radius:50%;background:#00f5a0;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.container{max-width:1000px;margin:30px auto;padding:0 20px}
+h2{font-size:24px;margin-bottom:20px;color:{{ tool_color }}}
+.card{background:linear-gradient(135deg,#0d0d1a,#1a1a2e);border-radius:16px;padding:25px;margin-bottom:20px;border:1px solid #ffffff0a}
+.card h3{font-size:16px;color:#888;margin-bottom:15px}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:15px;margin-bottom:25px}
+.stat{background:linear-gradient(135deg,#0d0d1a,#1a1a2e);border-radius:12px;padding:20px;text-align:center;border:1px solid #ffffff0a}
+.stat-value{font-size:28px;font-weight:700;color:{{ tool_color }}}
+.stat-label{font-size:13px;color:#888;margin-top:5px}
+.btn{padding:10px 24px;border:none;border-radius:10px;background:linear-gradient(135deg,{{ tool_color }},{{ tool_color }}88);color:#0a0a15;font-size:14px;font-weight:600;cursor:pointer;transition:.3s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 8px 25px {{ tool_color }}44}
+.btn-outline{padding:8px 18px;border:1px solid {{ tool_color }}44;border-radius:10px;background:transparent;color:{{ tool_color }};font-size:13px;cursor:pointer;transition:.3s}
+.btn-outline:hover{background:{{ tool_color }}11}
+.badge{padding:4px 10px;border-radius:20px;font-size:12px}
+.badge-safe{background:#00f5a033;color:#00f5a0}
+.badge-warn{background:#ffd93d33;color:#ffd93d}
+.group-card{background:#0a0a15;border-radius:10px;padding:15px;margin-bottom:10px}
+.group-card h4{font-size:14px;color:{{ tool_color }};margin-bottom:8px}
+.group-card .files{color:#888;font-size:13px}
+</style>
+</head>
+<body>
+<div class="header">
+<div class="logo">
+<div class="logo-icon">Z</div>
+<span class="logo-text">{{ tool_name }}</span>
+</div>
+<div class="status"><span class="status-dot"></span>نشط — مرخص</div>
+</div>
+<div class="container">
+<h2>مكتشف الملفات المكررة</h2>
+<div class="stats-grid">
+<div class="stat"><div class="stat-value">5</div><div class="stat-label">مجموعات مكررة</div></div>
+<div class="stat"><div class="stat-value">23.9MB</div><div class="stat-label">مساحة مهدرة</div></div>
+<div class="stat"><div class="stat-value">12</div><div class="stat-label">ملفات مكررة</div></div>
+<div class="stat"><div class="stat-value">C:\</div><div class="stat-label">آخر فحص</div></div>
+</div>
+<div class="card">
+<h3>🔍 فحص المسار</h3>
+<div style="display:flex;gap:10px;margin-bottom:15px">
+<input type="text" id="pathInput" value="C:\Users" style="flex:1;padding:10px 14px;border:1px solid #ffffff1a;border-radius:10px;background:#0a0a15;color:#fff;font-size:14px">
+<button class="btn" onclick="scanDuplicates()">🔍 فحص</button>
+</div>
+</div>
+<div class="card">
+<h3>📋 النتائج</h3>
+<div class="group-card">
+<h4>📸 صور مكررة (3 نسخ — 15.2MB)</h4>
+<div class="files">photo (1).jpg · photo (2).jpg · photo (3).jpg</div>
+</div>
+<div class="group-card">
+<h4>📦 ملفات مضغوطة (2 نسخ — 8.7MB)</h4>
+<div class="files">backup.zip · backup - Copy.zip</div>
+</div>
+<button class="btn-outline" style="width:100%;margin-top:10px" onclick="alert('✅ تم حذف 3 ملفات مكررة، تم توفير 12.3MB')">🗑️ حذف المكررات</button>
+</div>
+<div class="card">
+<h3>⚙️ إعدادات الفحص</h3>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px">
+<button class="btn-outline">📊 فحص سريع</button>
+<button class="btn-outline">🔍 فحص عميق</button>
+<button class="btn-outline">📁 اختيار مجلد</button>
+</div>
+</div>
+</div>
+<script>
+async function scanDuplicates() {
+const btn = event.target; btn.disabled = true; btn.textContent = '⏳ جاري الفحص...';
+const path = document.getElementById('pathInput').value;
+try { const r = await fetch('/api/scan', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({path})}); const d = await r.json(); alert(`✅ تم العثور على ${d.total_duplicates} ملف مكرر — ${d.wasted_space} مساحة مهدرة`); } catch(e) { alert('❌ فشل الفحص'); }
+btn.disabled = false; btn.textContent = '🔍 فحص';
+}
+</script>
+</body>
+</html>

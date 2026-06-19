@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ tool_name }} - ZELZAL SECURITY</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Tahoma,sans-serif;background:#0a0a15;color:#fff;min-height:100vh}
+.header{background:#0d0d1a;padding:15px 30px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid {{ tool_color }}33}
+.logo{display:flex;align-items:center;gap:10px}
+.logo-icon{width:36px;height:36px;background:linear-gradient(135deg,{{ tool_color }},{{ tool_color }}88);border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:900;color:#0a0a15}
+.logo-text{font-size:18px;font-weight:700;color:{{ tool_color }}}
+.status{display:flex;align-items:center;gap:8px;font-size:13px;color:#888}
+.status-dot{width:8px;height:8px;border-radius:50%;background:#00f5a0;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.container{max-width:1000px;margin:30px auto;padding:0 20px}
+h2{font-size:24px;margin-bottom:20px;color:{{ tool_color }}}
+.card{background:linear-gradient(135deg,#0d0d1a,#1a1a2e);border-radius:16px;padding:25px;margin-bottom:20px;border:1px solid #ffffff0a}
+.card h3{font-size:16px;color:#888;margin-bottom:15px}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:15px;margin-bottom:25px}
+.stat{background:linear-gradient(135deg,#0d0d1a,#1a1a2e);border-radius:12px;padding:20px;text-align:center;border:1px solid #ffffff0a}
+.stat-value{font-size:28px;font-weight:700;color:{{ tool_color }}}
+.stat-label{font-size:13px;color:#888;margin-top:5px}
+.btn{padding:10px 24px;border:none;border-radius:10px;background:linear-gradient(135deg,{{ tool_color }},{{ tool_color }}88);color:#0a0a15;font-size:14px;font-weight:600;cursor:pointer;transition:.3s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 8px 25px {{ tool_color }}44}
+.btn-danger{padding:10px 24px;border:none;border-radius:10px;background:linear-gradient(135deg,#e74c3c,#c0392b);color:#fff;font-size:14px;font-weight:600;cursor:pointer;transition:.3s}
+.btn-danger:hover{transform:translateY(-2px);box-shadow:0 8px 25px #e74c3c44}
+.btn-outline{padding:8px 18px;border:1px solid {{ tool_color }}44;border-radius:10px;background:transparent;color:{{ tool_color }};font-size:13px;cursor:pointer;transition:.3s}
+.btn-outline:hover{background:{{ tool_color }}11}
+.method-select{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:15px}
+.method-btn{padding:10px 18px;border:1px solid #ffffff1a;border-radius:10px;background:#0a0a15;color:#fff;font-size:13px;cursor:pointer;transition:.3s;flex:1;min-width:100px;text-align:center}
+.method-btn:hover{background:{{ tool_color }}11;border-color:{{ tool_color }}44}
+.method-btn.active{background:{{ tool_color }}22;border-color:{{ tool_color }};color:{{ tool_color }}}
+.file-list{list-style:none}
+.file-list li{display:flex;justify-content:space-between;align-items:center;padding:12px 15px;border-bottom:1px solid #ffffff0a}
+.file-list li:last-child{border-bottom:none}
+</style>
+</head>
+<body>
+<div class="header">
+<div class="logo">
+<div class="logo-icon">Z</div>
+<span class="logo-text">{{ tool_name }}</span>
+</div>
+<div class="status"><span class="status-dot"></span>نشط — مرخص</div>
+</div>
+<div class="container">
+<h2>ممزق الملفات الآمن</h2>
+<div class="stats-grid">
+<div class="stat"><div class="stat-value">47</div><div class="stat-label">ملفات تم حذفها</div></div>
+<div class="stat"><div class="stat-value">2.3GB</div><div class="stat-label">مساحة محررة</div></div>
+<div class="stat"><div class="stat-value">DoD 5220</div><div class="stat-label">الطريقة المستخدمة</div></div>
+<div class="stat"><div class="stat-value">غير قابل</div><div class="stat-label">الاسترجاع</div></div>
+</div>
+<div class="card">
+<h3>🔪 طريقة الحذف</h3>
+<div class="method-select">
+<div class="method-btn active" onclick="selectMethod(this,'dod')">🛡️ DoD 5220 (7 مرات)</div>
+<div class="method-btn" onclick="selectMethod(this,'nato')">🔰 NATO (3 مرات)</div>
+<div class="method-btn" onclick="selectMethod(this,'german')">🇩🇪 ألماني (7 مرات)</div>
+<div class="method-btn" onclick="selectMethod(this,'quick')">⚡ سريع (مرة)</div>
+</div>
+</div>
+<div class="card">
+<h3>📂 الملفات المحددة</h3>
+<ul class="file-list">
+<li><span>📄 secret.docx</span><span>2.4MB</span></li>
+<li><span>📸 private.jpg</span><span>5.1MB</span></li>
+<li><span>📦 old_backup.zip</span><span>128MB</span></li>
+<li><span>📊 financial.xlsx</span><span>0.8MB</span></li>
+</ul>
+<div style="margin-top:15px;display:flex;gap:10px">
+<button class="btn-outline">➕ إضافة ملفات</button>
+<button class="btn-danger" onclick="shredFiles()">🔥 تمزيق (حذف آمن)</button>
+</div>
+</div>
+<div class="card">
+<h3>⚙️ إعدادات متقدمة</h3>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px">
+<button class="btn-outline">🗂️ تمزيق مجلد</button>
+<button class="btn-outline">💾 تمزيق فارغ</button>
+<button class="btn-outline">📋 سجل العمليات</button>
+</div>
+</div>
+</div>
+<script>
+let currentMethod = 'dod';
+function selectMethod(el, method) {
+document.querySelectorAll('.method-btn').forEach(b => b.classList.remove('active'));
+el.classList.add('active');
+currentMethod = method;
+}
+async function shredFiles() {
+if(!confirm('⚠️ تحذير: الملفات المحذوفة لا يمكن استرجاعها! هل أنت متأكد؟')) return;
+const btn = document.querySelector('.btn-danger'); btn.disabled = true; btn.textContent = '🔥 جاري التمزيق...';
+try { const r = await fetch('/api/shred', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({method:currentMethod})}); const d = await r.json(); alert(`✅ تم تمزيق الملفات بنجاح (${d.passes} مرات) — غير قابل للاسترجاع`); } catch(e) { alert('❌ فشل التمزيق'); }
+btn.disabled = false; btn.textContent = '🔥 تمزيق (حذف آمن)';
+}
+</script>
+</body>
+</html>
