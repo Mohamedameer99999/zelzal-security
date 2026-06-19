@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% block title %}{{ _('My Tasks') }} - {{ _('AI Task Manager') }}{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h3><i class="bi bi-list-task"></i> {{ _('My Tasks') }}</h3>
+    <div>
+        <a href="{{ url_for('tasks.create') }}" class="btn btn-primary"><i class="bi bi-plus-lg"></i> {{ _('New Task') }}</a>
+        <a href="{{ url_for('tasks.export_pdf') }}{% if request.query_string.decode() %}?{{ request.query_string.decode() }}{% endif %}" class="btn btn-outline-danger"><i class="bi bi-filetype-pdf"></i> {{ _('Export PDF') }}</a>
+        <a href="{{ url_for('tasks.board') }}" class="btn btn-outline-info"><i class="bi bi-columns"></i> {{ _('Board') }}</a>
+    </div>
+</div>
+
+<div class="mb-3">
+    <form method="GET" class="row g-2">
+        <div class="col">
+            <input type="search" name="q" class="form-control" placeholder="{{ _('Search tasks...') }}" value="{{ request.args.get('q', '') }}">
+        </div>
+        <div class="col-auto">
+            <select name="status" class="form-select" onchange="this.form.submit()">
+                <option value="">{{ _('All Status') }}</option>
+                <option value="pending" {% if request.args.get('status') == 'pending' %}selected{% endif %}>{{ _('Pending') }}</option>
+                <option value="in_progress" {% if request.args.get('status') == 'in_progress' %}selected{% endif %}>{{ _('In Progress') }}</option>
+                <option value="done" {% if request.args.get('status') == 'done' %}selected{% endif %}>{{ _('Done') }}</option>
+            </select>
+        </div>
+        <div class="col-auto">
+            <select name="priority" class="form-select" onchange="this.form.submit()">
+                <option value="">{{ _('All Priority') }}</option>
+                <option value="low" {% if request.args.get('priority') == 'low' %}selected{% endif %}>{{ _('Low') }}</option>
+                <option value="medium" {% if request.args.get('priority') == 'medium' %}selected{% endif %}>{{ _('Medium') }}</option>
+                <option value="high" {% if request.args.get('priority') == 'high' %}selected{% endif %}>{{ _('High') }}</option>
+            </select>
+        </div>
+        <div class="col-auto">
+            <a href="{{ url_for('tasks.list') }}" class="btn btn-outline-secondary">{{ _('Clear') }}</a>
+        </div>
+    </form>
+</div>
+
+{% if tasks %}
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>{{ _('Title') }}</th>
+                <th>{{ _('Status') }}</th>
+                <th>{{ _('Priority') }}</th>
+                <th>{{ _('Category') }}</th>
+                <th>{{ _('Due Date') }}</th>
+                <th>{{ _('Actions') }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in tasks %}
+            <tr>
+                <td>
+                    <strong>{{ task.title }}</strong>
+                    {% if task.description %}<br><small class="text-muted">{{ task.description[:100] }}{% if task.description|length > 100 %}...{% endif %}</small>{% endif %}
+                </td>
+                <td>
+                    {% if task.status == 'done' %}
+                    <span class="badge bg-success">{{ _('Done') }}</span>
+                    {% elif task.status == 'in_progress' %}
+                    <span class="badge bg-warning text-dark">{{ _('In Progress') }}</span>
+                    {% else %}
+                    <span class="badge bg-secondary">{{ _('Pending') }}</span>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if task.priority == 'high' %}
+                    <span class="badge bg-danger">{{ _('High') }}</span>
+                    {% elif task.priority == 'medium' %}
+                    <span class="badge bg-info">{{ _('Medium') }}</span>
+                    {% else %}
+                    <span class="badge bg-light text-dark">{{ _('Low') }}</span>
+                    {% endif %}
+                </td>
+                <td>{{ task.category or '-' }}</td>
+                <td>
+                    {% if task.due_date %}
+                        {% if task.status != 'done' and task.due_date < today %}
+                        <span class="text-danger fw-bold"><i class="bi bi-exclamation-triangle"></i> {{ task.due_date.strftime('%Y-%m-%d') }}</span>
+                        {% else %}
+                        {{ task.due_date.strftime('%Y-%m-%d') }}
+                        {% endif %}
+                    {% else %}
+                    -
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{{ url_for('tasks.edit', id=task.id) }}" class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i></a>
+                    <form method="POST" action="{{ url_for('tasks.delete', id=task.id) }}" style="display:inline" onsubmit="return confirm('{{ _('Delete this task?') }}')">
+                        <button type="submit" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div class="text-center py-5 text-muted">
+    <i class="bi bi-inbox" style="font-size: 3rem;"></i>
+    <p class="mt-2">{{ _('No tasks found.') }}</p>
+    <a href="{{ url_for('tasks.create') }}" class="btn btn-primary">{{ _('Create your first task') }}</a>
+</div>
+{% endif %}
+{% endblock %}

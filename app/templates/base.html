@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="{{ g.get('lang', 'en') }}" dir="{{ 'rtl' if g.get('lang') == 'ar' else 'ltr' }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ _('AI Task Manager') }}{% endblock %}</title>
+    {% if g.get('lang') == 'ar' %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    {% else %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    {% endif %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('dashboard.index') }}">
+                <i class="bi bi-check2-square"></i> {{ _('AI Task Manager') }}
+            </a>
+            {% if current_user.is_authenticated %}
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('dashboard.index') }}"><i class="bi bi-speedometer2"></i> {{ _('Dashboard') }}</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"><i class="bi bi-list-task"></i> {{ _('Tasks') }}</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{{ url_for('tasks.list') }}"><i class="bi bi-list-ul"></i> {{ _('List View') }}</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('tasks.board') }}"><i class="bi bi-columns"></i> {{ _('Board View') }}</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('tasks.create') }}"><i class="bi bi-plus-circle"></i> {{ _('New Task') }}</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('set_lang', lang='en') }}">EN</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('set_lang', lang='ar') }}">AR</a>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link btn btn-link" id="themeToggle" title="{{ _('Toggle theme') }}"><i class="bi" id="themeIcon"></i></button>
+                    </li>
+                    <li class="nav-item">
+                        <span class="nav-link text-muted"><i class="bi bi-person"></i> {{ current_user.username }}</span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('auth.logout') }}"><i class="bi bi-box-arrow-right"></i> {{ _('Logout') }}</a>
+                    </li>
+                </ul>
+            </div>
+            {% endif %}
+        </div>
+    </nav>
+
+    <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }} alert-dismissible fade show">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    (function() {
+        const html = document.documentElement;
+        const saved = localStorage.getItem('theme');
+        if (saved) html.dataset.bsTheme = saved;
+        else html.dataset.bsTheme = 'dark';
+        const icon = document.getElementById('themeIcon');
+        icon.className = 'bi ' + (html.dataset.bsTheme === 'dark' ? 'bi-moon-stars' : 'bi-sun');
+        document.getElementById('themeToggle').addEventListener('click', function() {
+            const next = html.dataset.bsTheme === 'dark' ? 'light' : 'dark';
+            html.dataset.bsTheme = next;
+            localStorage.setItem('theme', next);
+            icon.className = 'bi ' + (next === 'dark' ? 'bi-moon-stars' : 'bi-sun');
+        });
+    })();
+    </script>
+    {% block extra_scripts %}{% endblock %}
+</body>
+</html>

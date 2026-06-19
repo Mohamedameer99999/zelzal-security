@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+{% block title %}{{ _('Dashboard') }} - {{ _('AI Task Manager') }}{% endblock %}
+{% block extra_head %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+{% endblock %}
+{% block content %}
+<h3><i class="bi bi-speedometer2"></i> {{ _('Dashboard') }}</h3>
+
+<div class="row mt-3">
+    <div class="col-md-3 mb-3">
+        <div class="card text-bg-primary">
+            <div class="card-body text-center">
+                <h1 class="display-4">{{ total }}</h1>
+                <span>{{ _('Total Tasks') }}</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="card text-bg-secondary">
+            <div class="card-body text-center">
+                <h1 class="display-4">{{ pending }}</h1>
+                <span>{{ _('Pending') }}</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="card text-bg-warning">
+            <div class="card-body text-center">
+                <h1 class="display-4">{{ in_progress }}</h1>
+                <span>{{ _('In Progress') }}</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="card text-bg-success">
+            <div class="card-body text-center">
+                <h1 class="display-4">{{ done }}</h1>
+                <span>{{ _('Completed') }}</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="card text-bg-{% if overdue %}danger{% else %}dark{% endif %}">
+            <div class="card-body text-center">
+                <h1 class="display-4">{{ overdue }}</h1>
+                <span>{{ _('Overdue') }}</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-3">
+    <div class="col-md-6 mb-3">
+        <div class="card">
+            <div class="card-header">{{ _('Tasks by Priority') }}</div>
+            <div class="card-body">
+                <canvas id="priorityChart" height="200"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 mb-3">
+        <div class="card">
+            <div class="card-header">{{ _('Tasks by Category') }}</div>
+            <div class="card-body">
+                <canvas id="categoryChart" height="200"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if recent %}
+<div class="card mt-3">
+    <div class="card-header">{{ _('Recent Tasks') }}</div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-sm">
+                <thead>
+                    <tr><th>{{ _('Title') }}</th><th>{{ _('Status') }}</th><th>{{ _('Priority') }}</th></tr>
+                </thead>
+                <tbody>
+                    {% for task in recent %}
+                    <tr>
+                        <td><a href="{{ url_for('tasks.edit', id=task.id) }}">{{ task.title }}</a></td>
+                        <td><span class="badge bg-{% if task.status == 'done' %}success{% elif task.status == 'in_progress' %}warning text-dark{% else %}secondary{% endif %}">{{ task.status }}</span></td>
+                        <td><span class="badge bg-{% if task.priority == 'high' %}danger{% elif task.priority == 'medium' %}info{% else %}light text-dark{% endif %}">{{ task.priority }}</span></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<div class="card mt-3">
+    <div class="card-header">
+        <i class="bi bi-robot"></i> {{ _('AI Assistant') }}
+    </div>
+    <div class="card-body">
+        <form id="aiForm" class="row g-2">
+            <div class="col-md-8">
+                <input type="text" id="aiTaskTitle" class="form-control" placeholder="{{ _('Paste a task title for AI analysis...') }}" required>
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-outline-info"><i class="bi bi-stars"></i> {{ _('Analyze with AI') }}</button>
+            </div>
+        </form>
+        <div id="aiResult" class="mt-3" style="display:none;"></div>
+    </div>
+</div>
+{% endblock %}
+{% block extra_scripts %}
+<script>
+const priorityData = {
+    labels: {{ by_priority.keys() | list | tojson }},
+    datasets: [{
+        data: {{ by_priority.values() | list | tojson }},
+        backgroundColor: ['#adb5bd', '#0dcaf0', '#dc3545'],
+    }]
+};
+new Chart(document.getElementById('priorityChart'), {
+    type: 'doughnut',
+    data: priorityData,
+    options: { responsive: true, maintainAspectRatio: false }
+});
+
+{% if by_category %}
+const categoryData = {
+    labels: {{ by_category.keys() | list | tojson }},
+    datasets: [{
+        data: {{ by_category.values() | list | tojson }},
+        backgroundColor: ['#0d6efd', '#6610f2', '#6f42c1', '#d63384', '#dc3545', '#fd7e14', '#ffc107', '#198754', '#20c997'],
+    }]
+};
+new Chart(document.getElementById('categoryChart'), {
+    type: 'bar',
+    data: categoryData,
+    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+});
+{% endif %}
+
+document.getElementById('aiForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const title = document.getElementById('aiTaskTitle').value;
+    const resultDiv = document.getElementById('aiResult');
+    resultDiv.style.display = 'block';
+    resultDiv.innerHTML = '<div class="spinner-border spinner-border-sm"></div> {{ _('Analyzing...') }}';
+    try {
+        const res = await fetch('{{ url_for("ai.analyze") }}', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({title: title}),
+        });
+        const data = await res.json();
+        resultDiv.innerHTML = `
+            <div class="card card-body">
+                <p><strong>{{ _('Priority') }}:</strong> <span class="badge bg-${data.priority === 'high' ? 'danger' : data.priority === 'medium' ? 'info' : 'light text-dark'}">${data.priority || '?'}</span></p>
+                <p><strong>{{ _('Category') }}:</strong> ${data.category || '?'}</p>
+                <p><strong>{{ _('Summary') }}:</strong> ${data.summary || ''}</p>
+                ${data.estimated_hours ? `<p><strong>{{ _('Est. Hours') }}:</strong> ${data.estimated_hours}</p>` : ''}
+            </div>
+        `;
+    } catch (err) {
+        resultDiv.innerHTML = '<div class="alert alert-danger">{{ _('AI analysis failed. Check your API key.') }}</div>';
+    }
+});
+</script>
+{% endblock %}

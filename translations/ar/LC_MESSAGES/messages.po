@@ -1,0 +1,367 @@
+# Arabic translations for AI Task Manager.
+# Copyright (C) 2026 ORGANIZATION
+# This file is distributed under the same license as the AI Task Manager
+# project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: AI Task Manager 1.0\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2026-06-09 07:29+0300\n"
+"PO-Revision-Date: 2026-06-09 07:12+0300\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ar\n"
+"Language-Team: ar <LL@li.org>\n"
+"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : "
+"n%100>=3 && n%100<=10 ? 3 : n%100>=0 && n%100<=2 ? 4 : 5);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: app/auth/forms.py:12 app/auth/forms.py:19
+msgid "Username"
+msgstr "اسم المستخدم"
+
+#: app/auth/forms.py:13 app/auth/forms.py:21
+msgid "Password"
+msgstr "كلمة المرور"
+
+#: app/auth/forms.py:14
+msgid "Remember Me"
+msgstr "تذكرني"
+
+#: app/auth/forms.py:15 app/templates/auth/login.html:7
+#: app/templates/auth/register.html:35
+msgid "Sign In"
+msgstr "تسجيل الدخول"
+
+#: app/auth/forms.py:20 app/auth/forms.py:35
+msgid "Email"
+msgstr "البريد الإلكتروني"
+
+#: app/auth/forms.py:22 app/auth/forms.py:41
+msgid "Confirm Password"
+msgstr "تأكيد كلمة المرور"
+
+#: app/auth/forms.py:23 app/templates/auth/login.html:32
+#: app/templates/auth/register.html:2 app/templates/auth/register.html:7
+msgid "Register"
+msgstr "إنشاء حساب"
+
+#: app/auth/forms.py:27
+msgid "Username already taken."
+msgstr "اسم المستخدم مستخدم بالفعل."
+
+#: app/auth/forms.py:31
+msgid "Email already registered."
+msgstr "البريد الإلكتروني مسجل بالفعل."
+
+#: app/auth/forms.py:36
+msgid "Send Reset Link"
+msgstr "إرسال رابط إعادة التعيين"
+
+#: app/auth/forms.py:40
+msgid "New Password"
+msgstr "كلمة المرور الجديدة"
+
+#: app/auth/forms.py:42 app/templates/auth/reset_password.html:2
+#: app/templates/auth/reset_password.html:7
+msgid "Reset Password"
+msgstr "إعادة تعيين كلمة المرور"
+
+#: app/auth/routes.py:27
+msgid "Invalid username or password."
+msgstr "اسم المستخدم أو كلمة المرور غير صحيحة."
+
+#: app/auth/routes.py:42
+msgid "Account created! You can now log in."
+msgstr "تم إنشاء الحساب! يمكنك تسجيل الدخول الآن."
+
+#: app/auth/routes.py:72
+msgid "If that email is registered, a reset link has been sent."
+msgstr "إذا كان البريد الإلكتروني مسجلاً، تم إرسال رابط إعادة التعيين."
+
+#: app/auth/routes.py:83
+msgid "Invalid or expired reset token."
+msgstr "رمز إعادة التعيين غير صالح أو منتهي الصلاحية."
+
+#: app/auth/routes.py:92
+msgid "Password reset successful! You can now log in."
+msgstr "تم إعادة تعيين كلمة المرور بنجاح! يمكنك تسجيل الدخول الآن."
+
+#: app/tasks/forms.py:9 app/templates/dashboard/index.html:78
+#: app/templates/tasks/list.html:45
+msgid "Title"
+msgstr "العنوان"
+
+#: app/tasks/forms.py:10
+msgid "Description"
+msgstr "الوصف"
+
+#: app/tasks/forms.py:11 app/templates/dashboard/index.html:78
+#: app/templates/tasks/list.html:46
+msgid "Status"
+msgstr "الحالة"
+
+#: app/tasks/forms.py:12 app/templates/dashboard/index.html:22
+#: app/templates/tasks/board.html:22 app/templates/tasks/list.html:21
+#: app/templates/tasks/list.html:66
+msgid "Pending"
+msgstr "معلقة"
+
+#: app/tasks/forms.py:13 app/templates/dashboard/index.html:30
+#: app/templates/tasks/board.html:23 app/templates/tasks/list.html:22
+#: app/templates/tasks/list.html:64
+msgid "In Progress"
+msgstr "قيد التنفيذ"
+
+#: app/tasks/forms.py:14 app/templates/tasks/board.html:24
+#: app/templates/tasks/list.html:23 app/templates/tasks/list.html:62
+msgid "Done"
+msgstr "منجزة"
+
+#: app/tasks/forms.py:16 app/templates/dashboard/index.html:78
+#: app/templates/dashboard/index.html:157 app/templates/tasks/list.html:47
+msgid "Priority"
+msgstr "الأولوية"
+
+#: app/tasks/forms.py:17 app/templates/tasks/list.html:29
+#: app/templates/tasks/list.html:75
+msgid "Low"
+msgstr "منخفضة"
+
+#: app/tasks/forms.py:18 app/templates/tasks/list.html:30
+#: app/templates/tasks/list.html:73
+msgid "Medium"
+msgstr "متوسطة"
+
+#: app/tasks/forms.py:19 app/templates/tasks/board.html:40
+#: app/templates/tasks/list.html:31 app/templates/tasks/list.html:71
+msgid "High"
+msgstr "عالية"
+
+#: app/tasks/forms.py:21 app/templates/dashboard/index.html:158
+#: app/templates/tasks/list.html:48
+msgid "Category"
+msgstr "التصنيف"
+
+#: app/tasks/forms.py:22 app/templates/tasks/list.html:49
+msgid "Due Date"
+msgstr "تاريخ الاستحقاق"
+
+#: app/tasks/forms.py:23
+msgid "Save"
+msgstr "حفظ"
+
+#: app/tasks/routes.py:53
+msgid "Task created."
+msgstr "تم إنشاء المهمة."
+
+#: app/tasks/routes.py:69
+msgid "Task updated."
+msgstr "تم تحديث المهمة."
+
+#: app/tasks/routes.py:81
+msgid "Task deleted."
+msgstr "تم حذف المهمة."
+
+#: app/templates/auth/forgot_password.html:2 app/templates/auth/login.html:2
+#: app/templates/auth/register.html:2 app/templates/auth/reset_password.html:2
+#: app/templates/base.html:6 app/templates/base.html:19
+#: app/templates/dashboard/index.html:2 app/templates/tasks/board.html:2
+#: app/templates/tasks/create.html:2 app/templates/tasks/edit.html:2
+#: app/templates/tasks/list.html:2
+msgid "AI Task Manager"
+msgstr "مدير المهام AI"
+
+#: app/templates/base.html:28 app/templates/dashboard/index.html:2
+#: app/templates/dashboard/index.html:7
+msgid "Dashboard"
+msgstr "لوحة التحكم"
+
+#: app/templates/base.html:31
+msgid "Tasks"
+msgstr "المهام"
+
+#: app/templates/base.html:33 app/templates/tasks/board.html:15
+msgid "List View"
+msgstr "عرض القائمة"
+
+#: app/templates/base.html:34
+msgid "Board View"
+msgstr "عرض اللوحة"
+
+#: app/templates/base.html:38 app/templates/tasks/board.html:16
+#: app/templates/tasks/create.html:2 app/templates/tasks/create.html:7
+#: app/templates/tasks/list.html:7
+msgid "New Task"
+msgstr "مهمة جديدة"
+
+#: app/templates/base.html:49
+msgid "Toggle theme"
+msgstr "تبديل السمة"
+
+#: app/templates/base.html:55
+msgid "Logout"
+msgstr "تسجيل الخروج"
+
+#: app/templates/auth/forgot_password.html:2
+#: app/templates/auth/forgot_password.html:7
+msgid "Forgot Password"
+msgstr "نسيت كلمة المرور"
+
+#: app/templates/auth/forgot_password.html:20
+msgid "Back to Sign In"
+msgstr "العودة إلى تسجيل الدخول"
+
+#: app/templates/auth/login.html:2
+msgid "Login"
+msgstr "تسجيل الدخول"
+
+#: app/templates/auth/login.html:13
+msgid "Enter your username"
+msgstr "أدخل اسم المستخدم"
+
+#: app/templates/auth/login.html:27
+msgid "Forgot password?"
+msgstr "نسيت كلمة المرور؟"
+
+#: app/templates/auth/login.html:32
+msgid "Don't have an account?"
+msgstr "ليس لديك حساب؟"
+
+#: app/templates/auth/register.html:13
+msgid "Choose a username"
+msgstr "اختر اسم مستخدم"
+
+#: app/templates/auth/register.html:35
+msgid "Already have an account?"
+msgstr "لديك حساب بالفعل؟"
+
+#: app/templates/dashboard/index.html:14
+msgid "Total Tasks"
+msgstr "إجمالي المهام"
+
+#: app/templates/dashboard/index.html:38
+msgid "Completed"
+msgstr "مكتملة"
+
+#: app/templates/dashboard/index.html:46
+msgid "Overdue"
+msgstr "متأخرة"
+
+#: app/templates/dashboard/index.html:55
+msgid "Tasks by Priority"
+msgstr "المهام حسب الأولوية"
+
+#: app/templates/dashboard/index.html:63
+msgid "Tasks by Category"
+msgstr "المهام حسب التصنيف"
+
+#: app/templates/dashboard/index.html:73
+msgid "Recent Tasks"
+msgstr "آخر المهام"
+
+#: app/templates/dashboard/index.html:97
+msgid "AI Assistant"
+msgstr "المساعد الذكي"
+
+#: app/templates/dashboard/index.html:102
+msgid "Paste a task title for AI analysis..."
+msgstr "الصق عنوان مهمة لتحليل AI..."
+
+#: app/templates/dashboard/index.html:105
+msgid "Analyze with AI"
+msgstr "تحليل بالذكاء الاصطناعي"
+
+#: app/templates/dashboard/index.html:147
+msgid "Analyzing..."
+msgstr "جارٍ التحليل..."
+
+#: app/templates/dashboard/index.html:159
+msgid "Summary"
+msgstr "الملخص"
+
+#: app/templates/dashboard/index.html:160
+msgid "Est. Hours"
+msgstr "الساعات المقدرة"
+
+#: app/templates/dashboard/index.html:164
+msgid "AI analysis failed. Check your API key."
+msgstr "فشل تحليل AI. تحقق من مفتاح API."
+
+#: app/templates/tasks/board.html:2 app/templates/tasks/board.html:13
+#: app/templates/tasks/list.html:9
+msgid "Board"
+msgstr "اللوحة"
+
+#: app/templates/tasks/board.html:42
+msgid "Med"
+msgstr "متوسط"
+
+#: app/templates/tasks/board.html:58
+msgid "No tasks"
+msgstr "لا توجد مهام"
+
+#: app/templates/tasks/board.html:81
+msgid "Failed to move task"
+msgstr "فشل نقل المهمة"
+
+#: app/templates/tasks/create.html:13
+msgid "What needs to be done?"
+msgstr "ماذا تريد أن تفعل؟"
+
+#: app/templates/tasks/create.html:32
+msgid "e.g. Development, Design, Marketing"
+msgstr "مثال: تطوير، تصميم، تسويق"
+
+#: app/templates/tasks/create.html:39 app/templates/tasks/edit.html:39
+msgid "Cancel"
+msgstr "إلغاء"
+
+#: app/templates/tasks/edit.html:2 app/templates/tasks/edit.html:7
+msgid "Edit Task"
+msgstr "تعديل المهمة"
+
+#: app/templates/tasks/list.html:2 app/templates/tasks/list.html:5
+msgid "My Tasks"
+msgstr "مهامي"
+
+#: app/templates/tasks/list.html:8
+msgid "Export PDF"
+msgstr "تصدير PDF"
+
+#: app/templates/tasks/list.html:16
+msgid "Search tasks..."
+msgstr "البحث عن مهام..."
+
+#: app/templates/tasks/list.html:20
+msgid "All Status"
+msgstr "كل الحالات"
+
+#: app/templates/tasks/list.html:28
+msgid "All Priority"
+msgstr "كل الأولويات"
+
+#: app/templates/tasks/list.html:35
+msgid "Clear"
+msgstr "مسح"
+
+#: app/templates/tasks/list.html:50
+msgid "Actions"
+msgstr "الإجراءات"
+
+#: app/templates/tasks/list.html:92
+msgid "Delete this task?"
+msgstr "حذف هذه المهمة؟"
+
+#: app/templates/tasks/list.html:104
+msgid "No tasks found."
+msgstr "لا توجد مهام."
+
+#: app/templates/tasks/list.html:105
+msgid "Create your first task"
+msgstr "أنشئ مهمتك الأولى"
+

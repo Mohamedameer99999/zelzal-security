@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block title %}{{ _('Board') }} - {{ _('AI Task Manager') }}{% endblock %}
+{% block extra_head %}
+<style>
+.kanban-col { min-height: 200px; }
+.kanban-card { cursor: grab; }
+.kanban-card:active { cursor: grabbing; opacity: 0.7; }
+.kanban-col.drag-over { background-color: rgba(13, 110, 253, 0.08); border-radius: 8px; }
+</style>
+{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h3><i class="bi bi-columns"></i> {{ _('Board') }}</h3>
+    <div>
+        <a href="{{ url_for('tasks.list') }}" class="btn btn-outline-info"><i class="bi bi-list-ul"></i> {{ _('List View') }}</a>
+        <a href="{{ url_for('tasks.create') }}" class="btn btn-primary"><i class="bi bi-plus-lg"></i> {{ _('New Task') }}</a>
+    </div>
+</div>
+
+<div class="row g-3">
+    {% set cols = [
+        ('pending', _('Pending'), pending, 'secondary', 'bi-hourglass-split'),
+        ('in_progress', _('In Progress'), in_progress, 'warning', 'bi-arrow-repeat'),
+        ('done', _('Done'), done, 'success', 'bi-check-all'),
+    ] %}
+    {% for status_key, label, tasks, color, icon in cols %}
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <span><i class="bi {{ icon }}"></i> {{ label }}</span>
+                <span class="badge bg-{{ color }} rounded-pill">{{ tasks|length }}</span>
+            </div>
+            <div class="card-body kanban-col" data-status="{{ status_key }}" ondragover="event.preventDefault()" ondrop="dropTask(event)">
+                {% for task in tasks %}
+                <div class="card kanban-card mb-2" draggable="true" ondragstart="dragTask(event, {{ task.id }})">
+                    <div class="card-body py-2 px-3">
+                        <div class="d-flex justify-content-between">
+                            <strong>{{ task.title[:40] }}{% if task.title|length > 40 %}...{% endif %}</strong>
+                            {% if task.priority == 'high' %}
+                            <span class="badge bg-danger" style="height: fit-content;">{{ _('High') }}</span>
+                            {% elif task.priority == 'medium' %}
+                            <span class="badge bg-info" style="height: fit-content;">{{ _('Med') }}</span>
+                            {% endif %}
+                        </div>
+                        {% if task.due_date %}
+                            {% if task.status != 'done' and task.due_date < today %}
+                            <small class="text-danger"><i class="bi bi-exclamation-triangle"></i> {{ task.due_date.strftime('%Y-%m-%d') }}</small>
+                            {% else %}
+                            <small class="text-muted">{{ task.due_date.strftime('%Y-%m-%d') }}</small>
+                            {% endif %}
+                        {% endif %}
+                        <div class="mt-1">
+                            <a href="{{ url_for('tasks.edit', id=task.id) }}" class="btn btn-sm btn-outline-primary py-0 px-1"><i class="bi bi-pencil"></i></a>
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                <p class="text-muted text-center small mt-3">{{ _('No tasks') }}</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+{% block extra_scripts %}
+<script>
+function dragTask(ev, taskId) {
+    ev.dataTransfer.setData('text/plain', taskId);
+}
+function dropTask(ev) {
+    ev.preventDefault();
+    const taskId = ev.dataTransfer.getData('text/plain');
+    const newStatus = ev.currentTarget.dataset.status;
+    fetch(`/tasks/${taskId}/move`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({status: newStatus}),
+    }).then(r => {
+        if (r.ok) location.reload();
+        else alert('{{ _('Failed to move task') }}');
+    });
+}
+</script>
+{% endblock %}

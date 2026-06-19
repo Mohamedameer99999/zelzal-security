@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZELZAL SECURITY - اشترك الآن</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Tahoma,sans-serif;background:#0a0a15;color:#fff;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.card{background:#111122;border:1px solid #ffffff0a;border-radius:20px;padding:40px;max-width:500px;width:100%}
+.logo{text-align:center;font-size:24px;font-weight:800;background:linear-gradient(135deg,#00f5a0,#00d9f5);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:5px}
+.sub{text-align:center;color:#667;font-size:13px;margin-bottom:25px}
+.plan{background:#0d0d1a;border-radius:12px;padding:20px;margin-bottom:15px;border:1px solid #ffffff0a;cursor:pointer;transition:all .3s;display:flex;justify-content:space-between;align-items:center}
+.plan:hover,.plan.selected{border-color:#00f5a0;background:#00f5a005}
+.plan .name{font-size:15px;font-weight:600}
+.plan .price{font-size:20px;font-weight:800;color:#00f5a0}
+.plan .price small{font-size:12px;color:#667;font-weight:400}
+.plan .savings{background:#ff5500;color:#fff;font-size:10px;padding:2px 8px;border-radius:10px;margin-right:8px}
+.period-toggle{display:flex;background:#0d0d1a;border-radius:10px;padding:4px;margin-bottom:20px;border:1px solid #ffffff0a}
+.period-btn{flex:1;padding:10px;text-align:center;border-radius:8px;cursor:pointer;font-size:14px;color:#667;transition:all .3s}
+.period-btn.active{background:#00f5a0;color:#0a0a15;font-weight:600}
+.payment-number{text-align:center;font-size:28px;font-weight:800;color:#fff;background:#0d0d1a;padding:15px;border-radius:12px;border:2px dashed #00f5a033;margin:20px 0;letter-spacing:2px;direction:ltr}
+.payment-label{text-align:center;color:#889;font-size:13px;margin-bottom:5px}
+.bot-btn{display:block;width:100%;padding:14px;background:linear-gradient(135deg,#00f5a0,#00d9f5);color:#0a0a15;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;text-align:center;text-decoration:none;transition:all .3s}
+.bot-btn:hover{box-shadow:0 4px 20px #00f5a033;transform:translateY(-1px)}
+.whatsapp-btn{display:block;width:100%;padding:14px;background:#25D366;color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;text-align:center;text-decoration:none;transition:all .3s}
+.whatsapp-btn:hover{box-shadow:0 4px 20px #25D36633}
+.total-display{text-align:center;font-size:14px;color:#889;margin:15px 0}
+.total-display span{font-size:24px;font-weight:800;color:#fff}
+.qr-section{text-align:center;margin:20px 0;padding:20px;background:#0d0d1a;border-radius:12px;border:1px solid #ffffff0a}
+.qr-placeholder{width:180px;height:180px;margin:10px auto;background:linear-gradient(135deg,#00f5a010,#00d9f510);border-radius:12px;display:flex;align-items:center;justify-content:center;border:1px dashed #00f5a033}
+.qr-placeholder span{color:#667;font-size:12px}
+.steps{list-style:none;margin:20px 0}
+.steps li{padding:8px 0;color:#889;font-size:13px;border-bottom:1px solid #ffffff08}
+.steps li::before{content:'✓ ';color:#00f5a0}
+.note{font-size:11px;color:#667;text-align:center;margin-top:15px}
+</style>
+</head>
+<body>
+
+<div class="card">
+<div class="logo">⚡ ZELZAL SECURITY</div>
+<div class="sub">اختر باقتك وادفع فوراً عبر فودافون كاش</div>
+
+<div class="period-toggle">
+<div class="period-btn active" onclick="setPeriod('monthly')" id="pMonthly">📅 شهري</div>
+<div class="period-btn" onclick="setPeriod('yearly')" id="pYearly">📆 سنوي (وفر أكثر)</div>
+</div>
+
+<div class="plan selected" onclick="selectPlan('pro')" id="planPRO">
+<div>
+<div class="name">🛡️ ZELZAL PRO</div>
+<div style="font-size:12px;color:#667">حماية متكاملة ضد الفيروسات والثغرات</div>
+</div>
+<div><span class="price" id="pricePRO">300</span> <small>ج.م</small></div>
+</div>
+
+<div class="plan" onclick="selectPlan('pentest')" id="planPENTEST">
+<div>
+<div class="name">🔥 Pentest Suite</div>
+<div style="font-size:12px;color:#667">اختبار اختراق واستغلال ثغرات</div>
+</div>
+<div><span class="price" id="pricePENTEST">400</span> <small>ج.م</small></div>
+</div>
+
+<div class="plan" onclick="selectPlan('vpn')" id="planVPN">
+<div>
+<div class="name">🔒 VPN Secure</div>
+<div style="font-size:12px;color:#667">VPN آمن مع تشفير وحجب</div>
+</div>
+<div><span class="price" id="priceVPN">150</span> <small>ج.م</small></div>
+</div>
+
+<div class="plan" onclick="selectPlan('netdef')" id="planNETDEF">
+<div>
+<div class="name">📡 Network Defender</div>
+<div style="font-size:12px;color:#667">مراقبة الشبكة وكشف الاختراق</div>
+</div>
+<div><span class="price" id="priceNETDEF">250</span> <small>ج.م</small></div>
+</div>
+
+<div class="plan" onclick="selectPlan('ransom')" id="planRANSOM">
+<div>
+<div class="name">🛑 Anti-Ransomware</div>
+<div style="font-size:12px;color:#667">مكافحة برمجيات الفدية</div>
+</div>
+<div><span class="price" id="priceRANSOM">200</span> <small>ج.م</small></div>
+</div>
+
+<div class="plan" onclick="selectPlan('exam')" id="planEXAM">
+<div>
+<div class="name">📝 Exam Scanner</div>
+<div style="font-size:12px;color:#667">فحص وتحليل الشبكات</div>
+</div>
+<div><span class="price" id="priceEXAM">500</span> <small>ج.م</small></div>
+</div>
+
+<div class="plan" onclick="selectPlan('android')" id="planANDROID">
+<div>
+<div class="name">📱 Android Analyzer</div>
+<div style="font-size:12px;color:#667">تحليل تطبيقات أندرويد</div>
+</div>
+<div><span class="price" id="priceANDROID">350</span> <small>ج.م</small></div>
+</div>
+
+<div class="plan" onclick="selectPlan('osint')" id="planOSINT">
+<div>
+<div class="name">🕵️ OSINT Pro</div>
+<div style="font-size:12px;color:#667">استخبارات مصادر مفتوحة</div>
+</div>
+<div><span class="price" id="priceOSINT">250</span> <small>ج.م</small></div>
+</div>
+
+<div class="total-display">المطلوب: <span id="totalPrice">200</span> ج.م</div>
+
+<div class="payment-label">💳 فودافون كاش — ارسل المبلغ على</div>
+<div class="payment-number" id="phoneDisplay">01034085168</div>
+
+<div class="qr-section">
+<div style="font-size:14px;color:#00f5a0;margin-bottom:10px">📱 امسح QR للدفع السريع (فودافون كاش)</div>
+<a href="http://vf.eg/vfcash?id=mt&qrId=SaAwyf" target="_blank">
+<img src="qr-code.png" alt="QR Code" style="width:200px;height:200px;border-radius:12px;border:2px solid #00f5a033;margin:10px auto;display:block;cursor:pointer" onerror="this.parentElement.innerHTML='<span style=color:#667;font-size:13px>⚠️ تعذر تحميل QR — <a href=&#39;http://vf.eg/vfcash?id=mt&amp;qrId=SaAwyf&#39; style=color:#00f5a0 target=_blank>اضغط هنا للدفع</a></span>'">
+</a>
+</div>
+
+<div style="margin-bottom:10px">
+<label style="font-size:13px;color:#667">🇪🇬 الدولة:</label>
+<select id="countrySel" onchange="updatePhone()" style="background:#0d0d1a;border:1px solid #ffffff0a;color:#fff;padding:6px 10px;border-radius:6px;width:100%;margin-top:5px">
+<option value="+20">مصر (+20)</option>
+<option value="+966">السعودية (+966)</option>
+<option value="+971">الإمارات (+971)</option>
+<option value="+974">قطر (+974)</option>
+<option value="+973">البحرين (+973)</option>
+<option value="+965">الكويت (+965)</option>
+<option value="+968">عُمان (+968)</option>
+</select>
+</div>
+
+<a href="https://t.me/ZELZAL_Security_bot" class="bot-btn" target="_blank">🤖 اشترك عبر البوت الآلي (أسرع)</a>
+<div style="text-align:center;margin:15px 0;color:#667;font-size:13px">— أو —</div>
+<a id="whatsappLink" href="https://wa.me/201034085168?text=%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%A7%D9%84%D8%A7%D8%B4%D8%AA%D8%B1%D8%A7%D9%83%20%D9%81%D9%8A%20%D8%A8%D8%A7%D9%82%D8%A9%20ZELZAL%20PRO%20-%20%D8%B4%D9%87%D8%B1%D9%8A%20300%20%D8%AC.%D9%85" class="whatsapp-btn" target="_blank">💬 أرسل الإيصال على واتساب</a>
+
+<ul class="steps">
+<li>حول المبلغ على رقم فودافون كاش أعلى</li>
+<li>صور الإيصال</li>
+<li>اضغط على واتساب وأرفق الصورة</li>
+<li>سيتم تفعيل اشتراكك خلال 30 دقيقة</li>
+</ul>
+
+<div class="note">لا توجد نسخة تجريبية — الاشتراك يبدأ فور تأكيد الدفع</div>
+</div>
+
+<script>
+const prices = {
+monthly: { pro: 300, pentest: 400, vpn: 150, netdef: 250, ransom: 200, exam: 500, android: 350, osint: 250 },
+yearly: { pro: 2500, pentest: 3500, vpn: 1200, netdef: 2000, ransom: 1500, exam: 4000, android: 3000, osint: 2000 }
+};
+let selectedPlan = 'pro';
+let selectedPeriod = 'monthly';
+const planIds = ['PRO','PENTEST','VPN','NETDEF','RANSOM','EXAM','ANDROID','OSINT'];
+
+function selectPlan(p) {
+selectedPlan = p;
+document.querySelectorAll('.plan').forEach(el => el.classList.remove('selected'));
+document.getElementById('plan' + p.toUpperCase()).classList.add('selected');
+updateTotal();
+}
+
+function setPeriod(p) {
+selectedPeriod = p;
+document.querySelectorAll('.period-btn').forEach(el => el.classList.remove('active'));
+document.getElementById(p === 'monthly' ? 'pMonthly' : 'pYearly').classList.add('active');
+updateTotal();
+}
+
+function updateTotal() {
+const price = prices[selectedPeriod][selectedPlan];
+document.getElementById('totalPrice').textContent = price;
+planIds.forEach(id => {
+const p = prices[selectedPeriod][id.toLowerCase()];
+document.getElementById('price' + id).textContent = p;
+});
+const names = { pro: 'ZELZAL PRO', pentest: 'Pentest Suite', vpn: 'VPN Secure', netdef: 'Network Defender', ransom: 'Anti-Ransomware', exam: 'Exam Scanner', android: 'Android Analyzer', osint: 'OSINT Pro' };
+const periods = { monthly: 'شهري', yearly: 'سنوي' };
+const msg = encodeURIComponent(`أريد الاشتراك في ${names[selectedPlan]} - ${periods[selectedPeriod]} ${price} ج.م`);
+const cc = document.getElementById('countrySel').value.replace('+', '');
+document.getElementById('whatsappLink').href = `https://wa.me/${cc}1034085168?text=${msg}`;
+}
+
+function updatePhone() {
+const cc = document.getElementById('countrySel').value;
+document.getElementById('phoneDisplay').textContent = cc + ' 1034085168';
+updateTotal();
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>دليل الاستخدام - ZELZAL SECURITY</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Tahoma,sans-serif;background:#0a0a15;color:#fff;line-height:1.8}
+.container{max-width:800px;margin:0 auto;padding:40px 20px}
+h1{font-size:36px;font-weight:800;margin-bottom:10px;background:linear-gradient(135deg,#00f5a0,#00d9f5);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-align:center}
+h2{font-size:24px;font-weight:700;margin:40px 0 15px;color:#00f5a0;border-bottom:1px solid #00f5a015;padding-bottom:8px}
+h3{font-size:18px;font-weight:600;margin:25px 0 10px;color:#00d9f5}
+p{color:#889;margin-bottom:15px;font-size:15px}
+.step{background:#111122;border-radius:12px;padding:20px;margin-bottom:15px;border:1px solid #ffffff0a}
+.step-num{display:inline-block;background:#00f5a0;color:#0a0a15;width:28px;height:28px;border-radius:50%;text-align:center;line-height:28px;font-weight:700;font-size:14px;margin-left:10px}
+code{background:#0d0d1a;color:#00f5a0;padding:2px 8px;border-radius:4px;font-size:13px;direction:ltr;display:inline-block}
+pre{background:#0d0d1a;border:1px solid #ffffff0a;border-radius:8px;padding:15px;margin:10px 0;overflow-x:auto;direction:ltr;font-family:monospace;font-size:13px;color:#00f5a0}
+.note{background:#00f5a008;border-right:3px solid #00f5a0;padding:12px 15px;border-radius:4px;margin:15px 0;font-size:14px;color:#889}
+.warning{background:#ff550008;border-right:3px solid #ff5500;padding:12px 15px;border-radius:4px;margin:15px 0;font-size:14px;color:#889}
+a{color:#00f5a0}
+.back-link{display:inline-block;margin-bottom:30px;color:#667;font-size:14px;text-decoration:none}
+.back-link:hover{color:#00f5a0}
+</style>
+</head>
+<body>
+<div class="container">
+<a href="index.html" class="back-link">← العودة للرئيسية</a>
+<h1>دليل الاستخدام</h1>
+<p style="text-align:center">كيفية تثبيت وتشغيل منتجات ZELZAL SECURITY</p>
+
+<h2>📦 محتويات الحزمة</h2>
+<p>بعد فتح الحزمة ZIP أو ISO ستجد 8 منتجات:</p>
+<div style="background:#111122;border-radius:8px;padding:15px;border:1px solid #ffffff0a;margin-bottom:20px;font-family:monospace;font-size:13px;direction:ltr">
+ZELZAL-Products/<br>
+├── ZELZAL-PRO/           ← حماية متكاملة (منفذ 9090)<br>
+├── Pentest-Suite/        ← اختبار اختراق (منفذ 9091)<br>
+├── VPN-Secure/           ← VPN آمن (منفذ 9092)<br>
+├── Network-Defender/     ← مراقبة شبكة (منفذ 9093)<br>
+├── Anti-Ransomware/      ← مكافحة فدية (منفذ 9094)<br>
+├── Exam-Scanner/         ← فحص شامل (منفذ 9095)<br>
+├── Android-Analyzer/     ← تحليل أندرويد (منفذ 9096)<br>
+├── OSINT-Pro/            ← استخبارات (منفذ 9097)<br>
+├── ZELZAL-Launcher.vbs<br>
+├── ZELZAL-Stop.vbs<br>
+├── presentations/<br>
+└── guide.html
+</div>
+
+<h2>🚀 تشغيل سريع (الطريقة الموصى بها)</h2>
+<div class="step"><span class="step-num">1</span> <strong>فك الضغط:</strong> استخرج محتويات ZIP أو ISO إلى مجلد على سطح المكتب أو أي مكان تختاره</div>
+<div class="step"><span class="step-num">2</span> <strong>تشغيل الكل:</strong> انقر دبل كليك على ملف <code>ZELZAL-Launcher.vbs</code> — سيشغل جميع المنتجات تلقائياً على المنافذ 9090-9097</div>
+<div class="step"><span class="step-num">3</span> <strong>إيقاف التشغيل:</strong> انقر دبل كليك على ملف <code>ZELZAL-Stop.vbs</code> لإغلاق جميع البرامج</div>
+
+<div class="note">💡 تأكد من تشغيل البرامج كـ Administrator لتعمل جميع الميزات (خاصة فحص الشبكة والتحكم في المنافذ)</div>
+
+<h2>🛡️ تشغيل ZELZAL PRO منفرداً</h2>
+<div class="step"><span class="step-num">1</span> اذهب إلى مجلد <code>ZELZAL-PRO\</code></div>
+<div class="step"><span class="step-num">2</span> انقر دبل كليك على <code>ZELZAL-PRO.exe</code> — أو شغله كـ Administrator (كلك يمين → Run as administrator)</div>
+<div class="step"><span class="step-num">3</span> افتح المتصفح على <code>http://localhost:9090</code></div>
+<div class="step"><span class="step-num">4</span> استخدم بيانات الدخول من ملف <code>config.json</code></div>
+
+<h2>🔥 تشغيل Pentest Suite منفرداً</h2>
+<div class="step"><span class="step-num">1</span> اذهب إلى مجلد <code>Pentest-Suite\</code></div>
+<div class="step"><span class="step-num">2</span> انقر دبل كليك على <code>Pentest-Suite.exe</code></div>
+<div class="step"><span class="step-num">3</span> افتح المتصفح على <code>http://localhost:9091</code></div>
+<div class="step"><span class="step-num">4</span> سجل الدخول بكلمة المرور من <code>config.json</code></div>
+
+<h2>باقي المنتجات</h2>
+<p>بقية المنتجات (VPN Secure, Network Defender, Anti-Ransomware, Exam Scanner, Android Analyzer, OSINT Pro) تعمل بنفس الطريقة — افتح مجلد المنتج، شغل الـ exe، ثم افتح المتصفح على المنفذ المخصص له (9092-9097).</p>
+
+<h2>⚙️ الإعدادات (config.json)</h2>
+<p>كل منتج يأتي مع ملف إعدادات خاص <code>config.json</code> — يمكنك تعديله بأي محرر نصوص (Notepad):</p>
+<pre>{
+  "port": 9090,
+  "admin_password": "1234",
+  "log_level": "info",
+  "subnet": "192.168.1.0/24",
+  "scan_interval": 60,
+  "webhook_url": ""
+}</pre>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:15px 0">
+<div style="background:#111122;padding:10px;border-radius:6px;border:1px solid #ffffff0a;font-size:13px"><code>port</code> — منفذ الواجهة</div>
+<div style="background:#111122;padding:10px;border-radius:6px;border:1px solid #ffffff0a;font-size:13px"><code>admin_password</code> — كلمة المرور</div>
+<div style="background:#111122;padding:10px;border-radius:6px;border:1px solid #ffffff0a;font-size:13px"><code>subnet</code> — نطاق الشبكة (لمنتجات Network Defender / Pentest)</div>
+<div style="background:#111122;padding:10px;border-radius:6px;border:1px solid #ffffff0a;font-size:13px"><code>scan_interval</code> — مدة المسح بالثواني</div>
+<div style="background:#111122;padding:10px;border-radius:6px;border:1px solid #ffffff0a;font-size:13px"><code>webhook_url</code> — رابط واتساب للإشعارات</div>
+</div>
+
+<div class="note">🔴 ملاحظة مهمة: إذا تركت <code>admin_password</code> فارغاً ""، سيتم تعطيل شاشة Login وسيدخل البرنامج مباشرة.</div>
+
+<h2>💳 الدفع والتفعيل (البوت الآلي — الأسرع)</h2>
+<p>كل شيء تلقائي بدون تدخل يدوي:</p>
+<div class="step"><span class="step-num">1</span> افتح البوت: <a href="https://t.me/ZELZAL_Security_bot">t.me/ZELZAL_Security_bot</a></div>
+<div class="step"><span class="step-num">2</span> أرسل <code>/create_order</code> واختر المنتج والمدة (شهر/3/6/12 شهر)</div>
+<div class="step"><span class="step-num">3</span> أرسل <code>/payment</code> وأكمل التعليمات — حول المبلغ على <strong>01034085168 فودافون كاش</strong></div>
+<div class="step"><span class="step-num">4</span> تأكد الدفع → يستلم الترخيص + الاشتراك + الفاتورة PDF فوراً تلقائياً</div>
+<p style="margin-top:10px;color:#00f5a0;font-size:14px">⚠️ إذا واجهت مشكلة، استخدم الطريقة اليدوية أدناه</p>
+
+<h2>💳 الدفع والتفعيل (يدوي)</h2>
+<div class="step"><span class="step-num">1</span> حول المبلغ عبر <strong>فودافون كاش</strong> على الرقم: <strong>+20 1034085168</strong></div>
+<div class="step"><span class="step-num">2</span> أرسل صورة الإيصال على واتساب: <a href="https://wa.me/201034085168">+20 1034085168</a></div>
+<div class="step"><span class="step-num">3</span> سيتم إرسال بيانات التفعيل خلال 30 دقيقة</div>
+
+<h2>🐛 تثبيت كـ Service (اختياري)</h2>
+<p>لتشغيل البرامج تلقائياً عند بدء تشغيل Windows (استبدل المسار حسب المنتج):</p>
+<pre>nssm install ZELZAL-PRO "C:\path\to\ZELZAL-PRO\ZELZAL-PRO.exe"
+nssm install Pentest-Suite "C:\path\to\Pentest-Suite\Pentest-Suite.exe"
+# ... كرر لباقي المنتجات (VPN-Secure, Network-Defender, إلخ)</pre>
+<p><code>nssm.exe</code> موجود داخل حزمة ZIP/ISO.</p>
+
+<h2>⚠️ مشاكل وحلول</h2>
+
+<div class="warning"><strong>Windows Defender يحظر الملف:</strong> أضف مجلد المنتج إلى استثناءات Windows Defender (Windows Security → Virus & threat protection → Manage settings → Exclusions)</div>
+<div class="warning"><strong>المنفذ مشغول:</strong> غيّر رقم المنفذ في <code>config.json</code> إلى منفذ آخر غير مستخدم</div>
+<div class="warning"><strong>الصفحة لا تفتح:</strong> تأكد أن البرنامج يعمل (سترى نافذة Console سوداء)، وأنك تستخدم الرابط الصحيح: <code>http://localhost:9090</code></div>
+
+<div class="note" style="margin-top:30px;text-align:center">
+للاستفسارات والدعم الفني:
+<a href="https://t.me/ZELZAL_Security_bot" style="margin:0 8px">🤖 البوت</a> |
+<a href="https://wa.me/201034085168" style="margin:0 8px">💬 واتساب: +20 1034085168</a> |
+<a href="https://t.me/ZELZAL_Security" style="margin:0 8px">✈️ تيليجرام</a>
+</div>
+</div>
+</body>
+</html>

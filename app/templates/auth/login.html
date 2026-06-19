@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}{{ _('Login') }} - {{ _('AI Task Manager') }}{% endblock %}
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header"><h4><i class="bi bi-box-arrow-in-right"></i> {{ _('Sign In') }}</h4></div>
+            <div class="card-body">
+                <form method="POST">
+                    {{ form.hidden_tag() }}
+                    <div class="mb-3">
+                        {{ form.username.label(class="form-label") }}
+                        {{ form.username(class="form-control", placeholder=_('Enter your username')) }}
+                        {% for error in form.username.errors %}<div class="text-danger small">{{ error }}</div>{% endfor %}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.password.label(class="form-label") }}
+                        {{ form.password(class="form-control") }}
+                        {% for error in form.password.errors %}<div class="text-danger small">{{ error }}</div>{% endfor %}
+                    </div>
+                    <div class="mb-3 form-check">
+                        {{ form.remember(class="form-check-input") }}
+                        {{ form.remember.label(class="form-check-label") }}
+                    </div>
+                    {{ form.submit(class="btn btn-primary w-100") }}
+                    <div class="mt-2 text-center">
+                        <a href="{{ url_for('auth.forgot_password') }}">{{ _('Forgot password?') }}</a>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer text-center">
+                {{ _("Don't have an account?") }} <a href="{{ url_for('auth.register') }}">{{ _('Register') }}</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

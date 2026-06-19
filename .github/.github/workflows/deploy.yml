@@ -1,0 +1,68 @@
+name: Deploy to PythonAnywhere
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+env:
+  PYTHONANYWHERE_USERNAME: zelzalsecurity
+  PYTHONANYWHERE_DOMAIN: zelzalsecurity.pythonanywhere.com
+  PYTHONANYWHERE_API_TOKEN: ${{ secrets.PYTHONANYWHERE_API_TOKEN }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Deploy to PythonAnywhere
+        env:
+          PA_USERNAME: ${{ env.PYTHONANYWHERE_USERNAME }}
+          PA_DOMAIN: ${{ env.PYTHONANYWHERE_DOMAIN }}
+          PA_TOKEN: ${{ secrets.PYTHONANYWHERE_API_TOKEN }}
+        run: |
+          python << 'EOF'
+          import requests
+          import os
+          import sys
+          
+          username = os.environ['PA_USERNAME']
+          domain = os.environ['PA_DOMAIN']
+          token = os.environ['PA_TOKEN']
+          
+          headers = {'Authorization': f'Token {token}'}
+          
+          # Reload the web app
+          url = f'https://www.pythonanywhere.com/api/v0/user/{username}/webapps/{domain}/reload/'
+          response = requests.post(url, headers=headers)
+          
+          if response.status_code == 200:
+              print(f'✅ Successfully reloaded {domain}')
+          else:
+              print(f'❌ Failed to reload: {response.status_code} - {response.text}')
+              sys.exit(1)
+          
+          print('✅ Deployment complete!')
+          EOF
+
+      - name: Notify on success
+        if: success()
+        run: |
+          echo "✅ Deployed to PythonAnywhere successfully!"
+
+      - name: Notify on failure
+        if: failure()
+        run: |
+          echo "❌ Deployment failed!"
